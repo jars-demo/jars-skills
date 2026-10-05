@@ -15,6 +15,7 @@ skills/<name>/SKILL.md            one skill per folder
 skills/<name>/references/         optional docs the skill links to
 skills/<name>/scripts/            optional helper scripts the skill runs
 README.md                         install steps and the skills table
+site/                             skills.jishanahmed.in, rebuilt from skills/ on every push to main
 ```
 
 ## Rules for skills

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>jars-skills · agent skills</title>
+  <meta name="description" content="Practical agent skills for Claude Code, Cursor, Copilot, Codex and more. One focused workflow per skill." />
+  <meta property="og:title" content="jars-skills" />
+  <meta property="og:description" content="Practical agent skills for Claude Code, Cursor, Copilot, Codex and more." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <style>
+    :root {
+      --bg: #fafaf9; --surface: #ffffff; --text: #1c1917; --muted: #57534e; --faint: #a8a29e;
+      --border: #e7e5e4; --accent: #2563eb; --code: #f5f5f4;
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0c0a09; --surface: #161412; --text: #f5f5f4; --muted: #a8a29e; --faint: #78716c;
+        --border: #292524; --accent: #60a5fa; --code: #1c1917;
+        color-scheme: dark;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    main { max-width: 760px; margin: 0 auto; padding: 64px 16px 48px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { font: 13.5px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    h1 { font-size: 2.4rem; letter-spacing: -0.03em; margin: 0 0 8px; }
+    h2 { font-size: 1.1rem; margin: 48px 0 12px; }
+    h3 { font-size: 1.05rem; margin: 0 0 6px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .lede { color: var(--muted); font-size: 1.1rem; margin: 0 0 16px; }
+    .meta { color: var(--faint); font-size: 0.9rem; }
+    .meta a { color: var(--muted); }
+    .install { display: grid; gap: 10px; }
+    .install p { margin: 8px 0 2px; color: var(--muted); font-size: 0.92rem; }
+    .cmd {
+      display: flex; align-items: center; gap: 8px; background: var(--code);
+      border: 1px solid var(--border); border-radius: 8px; padding: 8px 8px 8px 12px;
+    }
+    .cmd code { flex: 1; overflow-x: auto; white-space: nowrap; }
+    .cmd button {
+      font: inherit; font-size: 0.8rem; cursor: pointer; color: var(--muted);
+      background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 2px 10px;
+    }
+    .cmd button:hover { color: var(--text); }
+    .skills { display: grid; gap: 14px; }
+    .skill { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+    .skill p { margin: 0 0 10px; }
+    .skill .when { color: var(--muted); font-size: 0.92rem; }
+    footer {
+      margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border);
+      color: var(--faint); font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 8px 16px;
+      justify-content: space-between;
+    }
+    footer a { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>jars-skills</h1>
+      <p class="lede">
+        Practical agent skills: small, focused playbooks that teach a coding agent to do one job
+        well. They work in Claude Code, Cursor, GitHub Copilot, Codex, Gemini CLI and other agents
+        that read the <a href="https://agentskills.io">Agent Skills</a> format.
+      </p>
+      <p class="meta">
+        {{COUNT}} skills · v{{VERSION}} · MIT ·
+        <a href="https://github.com/{{REPO}}">GitHub</a>
+      </p>
+    </header>
+
+    <section>
+      <h2>Install</h2>
+      <div class="install">
+        <p>Claude Code</p>
+        <div class="cmd"><code>/plugin install jars-skills --marketplace {{REPO}}</code><button type="button" data-copy="/plugin install jars-skills --marketplace {{REPO}}">Copy</button></div>
+        <p>Any agent, via the <a href="https://skills.sh">skills CLI</a></p>
+        <div class="cmd"><code>npx skills add {{REPO}}</code><button type="button" data-copy="npx skills add {{REPO}}">Copy</button></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Skills</h2>
+      <div class="skills">{{SKILLS}}
+      </div>
+    </section>
+
+    <footer>
+      <span>Built with 💖 by <a href="https://jishanahmed.in">Mr. JARS</a></span>
+      <span><a href="https://github.com/{{REPO}}/blob/main/CONTRIBUTING.md">Contribute a skill</a></span>
+    </footer>
+  </main>
+  <script>
+    document.addEventListener('click', async (event) => {
+      const button = event.target.closest('button[data-copy]')
+      if (!button) return
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy)
+        button.textContent = 'Copied'
+      } catch {
+        button.textContent = 'Select & copy'
+      }
+      setTimeout(() => { button.textContent = 'Copy' }, 1500)
+    })
+  </script>
+</body>
+</html>
