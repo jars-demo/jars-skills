@@ -1,3 +1,11 @@
+<p align="center">
+  <img src="assets/logo-800.png" alt="jars-skills" width="420" />
+</p>
+
+<p align="center">
+  <a href="https://skills.jishanahmed.in">skills.jishanahmed.in</a>
+</p>
+
 # jars-skills
 
 The agent skills I use most in my day-to-day work, shared in case they help you too.

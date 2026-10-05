@@ -6,6 +6,7 @@ Standard library only. Run from the repo root: python site/build.py
 import html
 import json
 import re
+import shutil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -66,6 +67,9 @@ def main() -> None:
         .replace("{{SKILLS}}", "".join(card(skill) for skill in skills))
     )
     OUT.mkdir(exist_ok=True)
+    for name in ("logo-800.png", "icon.png"):
+        (OUT / "assets").mkdir(exist_ok=True)
+        shutil.copy2(ROOT / "assets" / name, OUT / "assets" / name)
     (OUT / "index.html").write_text(page, encoding="utf-8")
     (OUT / "CNAME").write_text("skills.jishanahmed.in\n", encoding="utf-8")
     print(f"Built _site/index.html with {len(skills)} skills (v{version})")
