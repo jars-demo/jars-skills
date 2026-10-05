@@ -107,7 +107,6 @@ def main() -> None:
         (OUT / "assets").mkdir(exist_ok=True)
         shutil.copy2(ROOT / "assets" / name, OUT / "assets" / name)
     (OUT / "index.html").write_text(page, encoding="utf-8")
-    (OUT / "CNAME").write_text("skills.jishanahmed.in\n", encoding="utf-8")
     print(f"Built _site/index.html with {len(skills)} skills (v{version})")
 
 

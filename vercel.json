@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "",
+  "buildCommand": "git fetch --quiet --unshallow https://github.com/jars-demo/jars-skills.git 2>/dev/null; python3 site/build.py",
+  "outputDirectory": "_site"
+}
