@@ -1,0 +1,12 @@
+{
+  "name": "jars-skills",
+  "version": "0.1.0",
+  "description": "Practical agent skills, one focused workflow each: commits, and more added daily.",
+  "author": {
+    "name": "Jishanahmed AR Shaikh",
+    "url": "https://jishanahmed.in"
+  },
+  "homepage": "https://github.com/jars-demo/jars-skills",
+  "repository": "https://github.com/jars-demo/jars-skills",
+  "license": "MIT"
+}

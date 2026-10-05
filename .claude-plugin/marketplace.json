@@ -1,0 +1,15 @@
+{
+  "name": "jars-skills",
+  "description": "Practical agent skills by Jishanahmed AR Shaikh, one focused workflow each.",
+  "owner": {
+    "name": "Jishanahmed AR Shaikh",
+    "url": "https://jishanahmed.in"
+  },
+  "plugins": [
+    {
+      "name": "jars-skills",
+      "source": "./",
+      "description": "Practical agent skills, one focused workflow each: commits, and more added daily."
+    }
+  ]
+}
