@@ -14,6 +14,8 @@ that read the Agent Skills format.
 /plugin install jars-skills@jars-skills
 ```
 
+Or in one step (Claude Code 2.1.275+): `/plugin install jars-skills --marketplace jars-demo/jars-skills`.
+
 Skills then load on their own when a task matches, or run one directly, e.g.
 `/jars-skills:commit-style`. Update later with `/plugin marketplace update jars-skills`.
 
