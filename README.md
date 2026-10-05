@@ -34,6 +34,7 @@ npx skills add jars-demo/jars-skills --skill commit-style  # just one
 | Skill | Use it when |
 | --- | --- |
 | [commit-style](skills/commit-style/SKILL.md) | Committing changes: plans small logical commits, follows the repo's conventions, writes clear Conventional Commits messages, never pushes unasked. |
+| [pr-description](skills/pr-description/SKILL.md) | Opening or describing a pull request: reads the real diff, follows the repo's PR template, writes a reviewer-ready title and description with honest test notes. |
 
 ## Layout
 
@@ -47,9 +48,8 @@ skills/<name>/
 
 ## Contributing
 
-Issues and pull requests are welcome: fixes, sharper wording, or ideas for new skills.
-A skill should do one job, say in its `description` exactly when to use it, and only contain
-steps that were actually tried.
+Issues and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for how to write a
+skill, and [AGENTS.md](AGENTS.md) for the rules every skill follows.
 
 ## License
 

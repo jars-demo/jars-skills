@@ -9,7 +9,7 @@
     {
       "name": "jars-skills",
       "source": "./",
-      "description": "Practical agent skills, one focused workflow each: commits, and more added daily."
+      "description": "Practical agent skills, one focused workflow each: commits, pull requests, and more added regularly."
     }
   ]
 }
