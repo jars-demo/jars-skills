@@ -35,22 +35,18 @@
     code { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     h2 { font-size: 1.15rem; margin: 0; }
 
-    /* ---------- header: logo + intro left, install right ---------- */
+    /* ---------- header: logo left; description, meta and install right ---------- */
     .hero {
-      display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 48px;
-      align-items: center; padding-bottom: 40px; border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 56px;
+      align-items: center; padding: 8px 0 44px; border-bottom: 1px solid var(--border);
     }
-    .hero h1 { margin: 0 0 18px; }
-    .hero h1 img { display: block; width: min(440px, 100%); height: auto; }
-    .lede { color: var(--muted); font-size: 1.05rem; margin: 0 0 14px; max-width: 620px; }
-    .meta { color: var(--faint); font-size: 0.9rem; margin: 0; }
+    .hero h1 { margin: 0; }
+    .hero h1 img { display: block; width: 100%; max-width: 480px; height: auto; }
+    .lede { color: var(--muted); font-size: 1.05rem; margin: 0 0 10px; }
+    .meta { color: var(--faint); font-size: 0.9rem; margin: 0 0 22px; }
     .meta a { color: var(--muted); }
-    .install {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
-      padding: 20px; display: grid; gap: 8px;
-    }
-    .install h2 { margin-bottom: 4px; }
-    .install p { margin: 6px 0 0; color: var(--muted); font-size: 0.88rem; }
+    .install { display: grid; gap: 6px; }
+    .install p { margin: 6px 0 0; color: var(--muted); font-size: 0.85rem; }
 
     .cmd {
       display: flex; align-items: center; gap: 8px; min-width: 0; background: var(--code);
@@ -95,7 +91,8 @@
 
     /* ---------- narrow screens: stack the hero, turn rows into cards ---------- */
     @media (max-width: 960px) {
-      .hero { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+      .hero { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+      .hero h1 img { max-width: 360px; }
       th.install-cell { width: 300px; }
     }
     @media (max-width: 760px) {
@@ -116,8 +113,8 @@
 <body>
   <main>
     <header class="hero">
+      <h1><img src="assets/logo-800.png" alt="jars-skills" width="480" height="107" /></h1>
       <div>
-        <h1><img src="assets/logo-800.png" alt="jars-skills" width="440" height="98" /></h1>
         <p class="lede">
           The agent skills I use most in my day-to-day work, shared in case they help you too. Each
           one is a short playbook that teaches a coding agent one job, in the
@@ -130,20 +127,19 @@
           {{COUNT}} skills · v{{VERSION}} · MIT ·
           <a href="https://github.com/{{REPO}}">GitHub</a>
         </p>
+        <div class="install">
+          <p>Claude Code</p>
+          <div class="cmd"><code>/plugin install jars-skills <span>--marketplace {{REPO}}</span></code><button type="button" data-copy="/plugin install jars-skills --marketplace {{REPO}}">Copy</button></div>
+          <p>Any agent, via the <a href="https://skills.sh">skills CLI</a></p>
+          <div class="cmd"><code>npx skills add <span>{{REPO}}</span></code><button type="button" data-copy="npx skills add {{REPO}}">Copy</button></div>
+        </div>
       </div>
-      <aside class="install">
-        <h2>Install all skills</h2>
-        <p>Claude Code</p>
-        <div class="cmd"><code>/plugin install jars-skills <span>--marketplace {{REPO}}</span></code><button type="button" data-copy="/plugin install jars-skills --marketplace {{REPO}}">Copy</button></div>
-        <p>Any agent, via the <a href="https://skills.sh">skills CLI</a></p>
-        <div class="cmd"><code>npx skills add <span>{{REPO}}</span></code><button type="button" data-copy="npx skills add {{REPO}}">Copy</button></div>
-      </aside>
     </header>
 
     <section>
       <div class="skills-head">
         <h2>Skills</h2>
-        <span>Install one with its command, or all of them above.</span>
+        <span>Install one with its command, or all of them with the commands above.</span>
       </div>
       <div class="table-wrap">
         <table>
