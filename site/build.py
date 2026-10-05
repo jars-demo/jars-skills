@@ -7,6 +7,8 @@ import html
 import json
 import re
 import shutil
+import subprocess
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -33,38 +35,72 @@ def split_description(description: str) -> tuple[str, str]:
     return what.strip(), (sep + when).strip() if sep else ""
 
 
+def added_on(path: Path) -> str:
+    """Date the file was first committed (ISO), or today for a skill not committed yet."""
+    try:
+        out = subprocess.run(
+            [
+                "git",
+                "log",
+                "--diff-filter=A",
+                "--follow",
+                "--format=%as",
+                "--",
+                str(path),
+            ],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.split()
+    except (OSError, subprocess.CalledProcessError):
+        out = []
+    return out[-1] if out else date.today().isoformat()
+
+
 def load_skills() -> list[dict[str, str]]:
     skills = []
-    for path in sorted((ROOT / "skills").glob("*/SKILL.md")):
+    for path in (ROOT / "skills").glob("*/SKILL.md"):
         meta = frontmatter(path.read_text(encoding="utf-8"))
         name = meta.get("name") or path.parent.name
         what, when = split_description(meta.get("description", ""))
-        skills.append({"name": name, "what": what, "when": when})
-    return skills
+        skills.append(
+            {"name": name, "what": what, "when": when, "added": added_on(path)}
+        )
+    return sorted(skills, key=lambda skill: (skill["added"], skill["name"]))
 
 
-def card(skill: dict[str, str]) -> str:
+def pretty_date(iso: str) -> str:
+    return date.fromisoformat(iso).strftime("%d %b %Y")
+
+
+def row(number: int, skill: dict[str, str]) -> str:
     name = html.escape(skill["name"])
     command = f"npx skills add {REPO} --skill {name}"
     when = f'<p class="when">{html.escape(skill["when"])}</p>' if skill["when"] else ""
     return f"""
-      <article class="skill" id="{name}">
-        <h3><a href="https://github.com/{REPO}/blob/main/skills/{name}/SKILL.md">{name}</a></h3>
-        <p>{html.escape(skill["what"])}</p>
-        {when}
-        <div class="cmd"><code>{command}</code><button type="button" data-copy="{command}">Copy</button></div>
-      </article>"""
+            <tr id="{name}">
+              <td class="num">{number}</td>
+              <td class="name"><a href="https://github.com/{REPO}/blob/main/skills/{name}/SKILL.md">{name}</a></td>
+              <td class="desc"><p>{html.escape(skill["what"])}</p>{when}</td>
+              <td class="install-cell"><div class="cmd"><code>npx skills add <span>{REPO}</span> <span>--skill {name}</span></code><button type="button" data-copy="{command}">Copy</button></div></td>
+              <td class="date"><time datetime="{skill["added"]}">{pretty_date(skill["added"])}</time></td>
+            </tr>"""
 
 
 def main() -> None:
     skills = load_skills()
-    version = json.loads((ROOT / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8"))["version"]
+    version = json.loads(
+        (ROOT / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8")
+    )["version"]
     page = (ROOT / "site" / "template.html").read_text(encoding="utf-8")
     page = (
         page.replace("{{REPO}}", REPO)
         .replace("{{COUNT}}", str(len(skills)))
         .replace("{{VERSION}}", html.escape(version))
-        .replace("{{SKILLS}}", "".join(card(skill) for skill in skills))
+        .replace(
+            "{{SKILLS}}", "".join(row(i, skill) for i, skill in enumerate(skills, 1))
+        )
     )
     OUT.mkdir(exist_ok=True)
     for name in ("logo-800.png", "icon.png"):

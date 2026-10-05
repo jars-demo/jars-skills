@@ -14,87 +14,145 @@
   <style>
     :root {
       --bg: #fafaf9; --surface: #ffffff; --text: #1c1917; --muted: #57534e; --faint: #a8a29e;
-      --border: #e7e5e4; --accent: #2563eb; --code: #f5f5f4;
+      --border: #e7e5e4; --accent: #2563eb; --code: #f5f5f4; --row-hover: #f5f5f4;
       color-scheme: light;
     }
     @media (prefers-color-scheme: dark) {
       :root {
         --bg: #0c0a09; --surface: #161412; --text: #f5f5f4; --muted: #a8a29e; --faint: #78716c;
-        --border: #292524; --accent: #60a5fa; --code: #1c1917;
+        --border: #292524; --accent: #60a5fa; --code: #1c1917; --row-hover: #1c1917;
         color-scheme: dark;
       }
     }
     * { box-sizing: border-box; }
     body {
       margin: 0; background: var(--bg); color: var(--text);
-      font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font: 15px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
     }
-    main { max-width: 760px; margin: 0 auto; padding: 64px 16px 48px; }
+    main { max-width: 1240px; margin: 0 auto; padding: 56px 32px 40px; }
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    code { font: 13.5px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-    h1 { font-size: 2.4rem; letter-spacing: -0.03em; margin: 0 0 8px; }
-    h2 { font-size: 1.1rem; margin: 48px 0 12px; }
-    h3 { font-size: 1.05rem; margin: 0 0 6px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
-    .lede { color: var(--muted); font-size: 1.1rem; margin: 0 0 16px; }
-    .meta { color: var(--faint); font-size: 0.9rem; }
-    .meta a { color: var(--muted); }
-    .install { display: grid; gap: 10px; }
-    .install p { margin: 8px 0 2px; color: var(--muted); font-size: 0.92rem; }
-    .cmd {
-      display: flex; align-items: center; gap: 8px; background: var(--code);
-      border: 1px solid var(--border); border-radius: 8px; padding: 8px 8px 8px 12px;
+    code { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    h2 { font-size: 1.15rem; margin: 0; }
+
+    /* ---------- header: logo + intro left, install right ---------- */
+    .hero {
+      display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 48px;
+      align-items: center; padding-bottom: 40px; border-bottom: 1px solid var(--border);
     }
-    .cmd code { flex: 1; overflow-x: auto; white-space: nowrap; }
+    .hero h1 { margin: 0 0 18px; }
+    .hero h1 img { display: block; width: min(440px, 100%); height: auto; }
+    .lede { color: var(--muted); font-size: 1.05rem; margin: 0 0 14px; max-width: 620px; }
+    .meta { color: var(--faint); font-size: 0.9rem; margin: 0; }
+    .meta a { color: var(--muted); }
+    .install {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+      padding: 20px; display: grid; gap: 8px;
+    }
+    .install h2 { margin-bottom: 4px; }
+    .install p { margin: 6px 0 0; color: var(--muted); font-size: 0.88rem; }
+
+    .cmd {
+      display: flex; align-items: center; gap: 8px; min-width: 0; background: var(--code);
+      border: 1px solid var(--border); border-radius: 8px; padding: 6px 6px 6px 10px;
+    }
+    .cmd code { flex: 1; min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+    .cmd code span { white-space: nowrap; }
     .cmd button {
-      font: inherit; font-size: 0.8rem; cursor: pointer; color: var(--muted);
+      flex: none; font: inherit; font-size: 0.78rem; cursor: pointer; color: var(--muted);
       background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 2px 10px;
     }
     .cmd button:hover { color: var(--text); }
-    .skills { display: grid; gap: 14px; }
-    .skill { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
-    .skill p { margin: 0 0 10px; }
-    .skill .when { color: var(--muted); font-size: 0.92rem; }
+
+    /* ---------- skills table ---------- */
+    .skills-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 40px 0 14px; }
+    .skills-head span { color: var(--faint); font-size: 0.9rem; }
+    .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    th, td { padding: 14px 16px; text-align: left; vertical-align: top; }
+    th {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--faint); border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    tbody tr + tr td { border-top: 1px solid var(--border); }
+    tbody tr:hover td { background: var(--row-hover); }
+    th.num, td.num { width: 52px; }
+    td.num { color: var(--faint); font-variant-numeric: tabular-nums; }
+    th.name { width: 170px; }
+    td.name a { font: 600 14px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    td.desc p { margin: 0; }
+    td.desc .when { color: var(--muted); font-size: 0.88rem; margin-top: 4px; }
+    th.install-cell { width: 390px; }
+    th.date { width: 120px; }
+    td.date { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
     footer {
-      margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border);
+      margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border);
       color: var(--faint); font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 8px 16px;
       justify-content: space-between;
     }
     footer a { color: var(--muted); }
-    h1 img { display: block; width: min(400px, 100%); height: auto; }
+
+    /* ---------- narrow screens: stack the hero, turn rows into cards ---------- */
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+      th.install-cell { width: 300px; }
+    }
+    @media (max-width: 760px) {
+      main { padding: 32px 16px; }
+      thead { display: none; }
+      table, tbody, tr, td { display: block; width: auto !important; }
+      tbody tr { padding: 14px 16px; }
+      tbody tr + tr { border-top: 1px solid var(--border); }
+      tbody tr + tr td { border-top: 0; }
+      td { padding: 0; }
+      td.num { display: none; }
+      td.desc { margin: 4px 0 10px; }
+      td.date { margin-top: 8px; font-size: 0.85rem; }
+      td.date::before { content: "Added "; }
+    }
   </style>
 </head>
 <body>
   <main>
-    <header>
-      <h1><img src="assets/logo-800.png" alt="jars-skills" width="400" height="90" /></h1>
-      <p class="lede">
-        The agent skills I use most in my day-to-day work, shared in case they help you too. Each
-        one is a short playbook that teaches a coding agent one job, in the
-        <a href="https://agentskills.io">Agent Skills</a> format: Claude Code, Cursor, GitHub
-        Copilot, Codex, Gemini CLI and more. New skills land one at a time, aiming for one a day,
-        and only after I've used them for real.
-      </p>
-      <p class="meta">
-        by <a href="https://jishanahmed.in">Jishanahmed AR Shaikh (Mr. JARS)</a> ·
-        {{COUNT}} skills · v{{VERSION}} · MIT ·
-        <a href="https://github.com/{{REPO}}">GitHub</a>
-      </p>
+    <header class="hero">
+      <div>
+        <h1><img src="assets/logo-800.png" alt="jars-skills" width="440" height="98" /></h1>
+        <p class="lede">
+          The agent skills I use most in my day-to-day work, shared in case they help you too. Each
+          one is a short playbook that teaches a coding agent one job, in the
+          <a href="https://agentskills.io">Agent Skills</a> format: Claude Code, Cursor, GitHub
+          Copilot, Codex, Gemini CLI and more. New skills land one at a time, aiming for one a day,
+          and only after I've used them for real.
+        </p>
+        <p class="meta">
+          by <a href="https://jishanahmed.in">Jishanahmed AR Shaikh (Mr. JARS)</a> ·
+          {{COUNT}} skills · v{{VERSION}} · MIT ·
+          <a href="https://github.com/{{REPO}}">GitHub</a>
+        </p>
+      </div>
+      <aside class="install">
+        <h2>Install all skills</h2>
+        <p>Claude Code</p>
+        <div class="cmd"><code>/plugin install jars-skills <span>--marketplace {{REPO}}</span></code><button type="button" data-copy="/plugin install jars-skills --marketplace {{REPO}}">Copy</button></div>
+        <p>Any agent, via the <a href="https://skills.sh">skills CLI</a></p>
+        <div class="cmd"><code>npx skills add <span>{{REPO}}</span></code><button type="button" data-copy="npx skills add {{REPO}}">Copy</button></div>
+      </aside>
     </header>
 
     <section>
-      <h2>Install</h2>
-      <div class="install">
-        <p>Claude Code</p>
-        <div class="cmd"><code>/plugin install jars-skills --marketplace {{REPO}}</code><button type="button" data-copy="/plugin install jars-skills --marketplace {{REPO}}">Copy</button></div>
-        <p>Any agent, via the <a href="https://skills.sh">skills CLI</a></p>
-        <div class="cmd"><code>npx skills add {{REPO}}</code><button type="button" data-copy="npx skills add {{REPO}}">Copy</button></div>
+      <div class="skills-head">
+        <h2>Skills</h2>
+        <span>Install one with its command, or all of them above.</span>
       </div>
-    </section>
-
-    <section>
-      <h2>Skills</h2>
-      <div class="skills">{{SKILLS}}
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th class="num">#</th><th class="name">Skill</th><th>Description</th><th class="install-cell">Install</th><th class="date">Added</th></tr>
+          </thead>
+          <tbody>{{SKILLS}}
+          </tbody>
+        </table>
       </div>
     </section>
 
