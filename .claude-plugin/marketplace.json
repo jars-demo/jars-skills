@@ -1,6 +1,6 @@
 {
   "name": "jars-skills",
-  "description": "Practical agent skills by Jishanahmed AR Shaikh, one focused workflow each.",
+  "description": "Agent skills Jishanahmed AR Shaikh (Mr. JARS) uses day to day, shared one at a time.",
   "owner": {
     "name": "Jishanahmed AR Shaikh",
     "url": "https://jishanahmed.in"
@@ -9,7 +9,7 @@
     {
       "name": "jars-skills",
       "source": "./",
-      "description": "Practical agent skills, one focused workflow each: commits, pull requests, and more added regularly."
+      "description": "The agent skills Jishanahmed AR Shaikh (Mr. JARS) uses most day to day: commits, pull requests, and more over time."
     }
   ]
 }

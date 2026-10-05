@@ -1,9 +1,16 @@
 # jars-skills
 
-Practical [agent skills](https://agentskills.io): small, focused playbooks that teach a coding
-agent how to do one job well. A new skill lands regularly; each one is a single folder with a
-`SKILL.md` and works in Claude Code, Cursor, GitHub Copilot, Codex, Gemini CLI and other agents
-that read the Agent Skills format.
+The agent skills I use most in my day-to-day work, shared in case they help you too.
+
+I'm Jishanahmed AR Shaikh (Mr. JARS). I build and contribute to open source with coding agents
+most days, and when I notice I'm explaining the same workflow to an agent again and again, I
+write it down here as a skill.
+
+Each skill is one folder with a `SKILL.md`: a short playbook that teaches an agent to do one job
+the way I do it. They follow the [Agent Skills](https://agentskills.io) format, so they work in
+Claude Code, Cursor, GitHub Copilot, Codex, Gemini CLI and other agents that read it.
+
+I add them one at a time, aiming for one a day, and only after I've used the workflow for real.
 
 ## Install
 
