@@ -51,6 +51,7 @@ npx skills add jars-demo/jars-skills --skill commit-style  # just one
 | [changelog](skills/changelog/SKILL.md) | Cutting a release or updating CHANGELOG.md: reads commits and diffs since the last tag, categorises changes by section, proposes a version bump, and writes a user-facing entry in Keep a Changelog format. |
 | [code-review](skills/code-review/SKILL.md) | Reviewing pull requests: reads the actual diff, flags real issues (bugs, security, performance, missing tests), groups feedback by severity, never rubber-stamps. |
 | [commit-style](skills/commit-style/SKILL.md) | Committing changes: plans small logical commits, follows the repo's conventions, writes clear Conventional Commits messages, never pushes unasked. |
+| [debug-session](skills/debug-session/SKILL.md) | Diagnosing and fixing bugs: reproduces the issue, isolates the root cause with a clear hypothesis, applies a minimal fix, verifies it, and reports honestly — no blind changes. |
 | [pr-description](skills/pr-description/SKILL.md) | Opening or describing a pull request: reads the real diff, follows the repo's PR template, writes a reviewer-ready title and description with honest test notes. |
 
 ## Layout
