@@ -61,7 +61,15 @@
     .cmd button:hover { color: var(--text); }
 
     /* ---------- skills table ---------- */
-    .skills-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin: 20px 0 14px; }
+    .skills-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 20px 0 14px; }
+    #skill-search {
+      font: inherit; font-size: 0.9rem; padding: 6px 12px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      outline-offset: 2px; width: 220px;
+    }
+    #skill-search:focus { outline: 2px solid var(--accent); border-color: transparent; }
+    #no-results { display: none; }
+    #no-results td { color: var(--muted); font-size: 0.9rem; padding: 20px 16px; }
     .skills-head span { color: var(--faint); font-size: 0.9rem; }
     .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
     table { width: 100%; border-collapse: collapse; table-layout: fixed; }
@@ -139,7 +147,7 @@
     <section>
       <div class="skills-head">
         <h2>Skills</h2>
-        <span>Install one with its command, or all of them with the commands above.</span>
+        <input id="skill-search" type="search" placeholder="Filter skills…" autocomplete="off" />
       </div>
       <div class="table-wrap">
         <table>
@@ -147,6 +155,7 @@
             <tr><th class="num">#</th><th class="name">Skill</th><th>Description</th><th class="install-cell">Install</th><th class="date">Added</th></tr>
           </thead>
           <tbody>{{SKILLS}}
+            <tr id="no-results"><td colspan="5">No skills match your filter.</td></tr>
           </tbody>
         </table>
       </div>
@@ -169,6 +178,27 @@
       }
       setTimeout(() => { button.textContent = 'Copy' }, 1500)
     })
+  </script>
+  <script>
+    // ── search / filter ──────────────────────────────────────────────
+    const searchInput = document.getElementById('skill-search')
+    const noResults   = document.getElementById('no-results')
+    const allRows = () => Array.from(document.querySelectorAll('tbody tr[id]:not(#no-results)'))
+
+    function applyFilter() {
+      const q = searchInput.value.trim().toLowerCase()
+      let visible = 0
+      allRows().forEach(tr => {
+        const text = tr.textContent.toLowerCase()
+        const show = !q || text.includes(q)
+        tr.dataset.hidden = show ? '' : '1'
+        visible += show ? 1 : 0
+      })
+      noResults.style.display = visible === 0 ? '' : 'none'
+      resetPagination()
+    }
+
+    searchInput.addEventListener('input', applyFilter)
   </script>
 </body>
 </html>
