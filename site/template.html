@@ -70,6 +70,17 @@
     #skill-search:focus { outline: 2px solid var(--accent); border-color: transparent; }
     #no-results { display: none; }
     #no-results td { color: var(--muted); font-size: 0.9rem; padding: 20px 16px; }
+    .pagination {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      margin-top: 12px; font-size: 0.88rem; color: var(--muted);
+    }
+    .pagination button {
+      font: inherit; font-size: 0.88rem; padding: 5px 14px; border-radius: 7px; cursor: pointer;
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    }
+    .pagination button:hover:not(:disabled) { background: var(--row-hover); }
+    .pagination button:disabled { opacity: 0.35; cursor: default; }
+    .page-btns { display: flex; gap: 6px; }
     .skills-head span { color: var(--faint); font-size: 0.9rem; }
     .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
     table { width: 100%; border-collapse: collapse; table-layout: fixed; }
@@ -159,6 +170,13 @@
           </tbody>
         </table>
       </div>
+      <div class="pagination" id="pagination">
+        <span id="page-info"></span>
+        <div class="page-btns">
+          <button id="page-prev" type="button">← Prev</button>
+          <button id="page-next" type="button">Next →</button>
+        </div>
+      </div>
     </section>
 
     <footer>
@@ -199,6 +217,44 @@
     }
 
     searchInput.addEventListener('input', applyFilter)
+  </script>
+  <script>
+    // ── pagination ───────────────────────────────────────────────────
+    const PER_PAGE  = 5
+    let currentPage = 1
+
+    const paginationEl = document.getElementById('pagination')
+    const pageInfo     = document.getElementById('page-info')
+    const btnPrev      = document.getElementById('page-prev')
+    const btnNext      = document.getElementById('page-next')
+
+    function visibleRows() {
+      return allRows().filter(tr => tr.dataset.hidden !== '1')
+    }
+
+    function renderPage() {
+      const rows  = visibleRows()
+      const total = rows.length
+      const pages = Math.ceil(total / PER_PAGE) || 1
+      currentPage = Math.min(currentPage, pages)
+
+      const start = (currentPage - 1) * PER_PAGE
+      const end   = start + PER_PAGE
+
+      rows.forEach((tr, i) => { tr.style.display = (i >= start && i < end) ? '' : 'none' })
+
+      pageInfo.textContent = total === 0 ? '' : `${start + 1}–${Math.min(end, total)} of ${total}`
+      btnPrev.disabled = currentPage === 1
+      btnNext.disabled = currentPage >= pages
+      paginationEl.style.display = total <= PER_PAGE ? 'none' : ''
+    }
+
+    function resetPagination() { currentPage = 1; renderPage() }
+
+    btnPrev.addEventListener('click', () => { currentPage--; renderPage() })
+    btnNext.addEventListener('click', () => { currentPage++; renderPage() })
+
+    renderPage()
   </script>
 </body>
 </html>
