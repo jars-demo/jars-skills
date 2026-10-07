@@ -79,7 +79,7 @@ def row(number: int, skill: dict[str, str]) -> str:
     command = f"npx skills add {REPO} --skill {name}"
     when = f'<p class="when">{html.escape(skill["when"])}</p>' if skill["when"] else ""
     return f"""
-            <tr id="{name}">
+            <tr id="{name}" data-name="{name}" data-date="{skill["added"]}">
               <td class="num">{number}</td>
               <td class="name"><a href="https://github.com/{REPO}/blob/main/skills/{name}/SKILL.md">{name}</a></td>
               <td class="desc"><p>{html.escape(skill["what"])}</p>{when}</td>
