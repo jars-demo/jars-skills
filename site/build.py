@@ -70,6 +70,27 @@ def load_skills() -> list[dict[str, str]]:
     return sorted(skills, key=lambda skill: (skill["added"], skill["name"]))
 
 
+def ticker_items(skills: list[dict[str, str]], repo: str) -> str:
+    """Build the repeating ticker message string."""
+    static = [
+        f"{len(skills)} skills and counting · one a day, only after I've used it for real",
+        "Works with Claude Code · Cursor · GitHub Copilot · Codex · Gemini CLI and more",
+        f"Install in one line → npx skills add {repo}",
+        "Open source · MIT licence · contributions welcome",
+        "Every skill is one job, one file, under 500 lines",
+    ]
+    # inject the 3 most recent skills as dynamic items
+    recent = sorted(skills, key=lambda s: (s["added"], s["name"]), reverse=True)[:3]
+    dynamic = [
+        f"NEW: {s['name']} — {s['what'][:80].rstrip()}"
+        for s in recent
+    ]
+    all_messages = dynamic + static
+    sep = '<span class="ticker-sep">·</span>'
+    items = [f'<span>{html.escape(msg)}</span>{sep}' for msg in all_messages]
+    return "".join(items)
+
+
 def pretty_date(iso: str) -> str:
     return date.fromisoformat(iso).strftime("%d %b %Y")
 
@@ -90,6 +111,13 @@ def row(number: int, skill: dict[str, str]) -> str:
 
 def main() -> None:
     skills = load_skills()
+    today = date.today().isoformat()
+    today_skills = [s for s in skills if s["added"] == today]
+    today_count = len(today_skills)
+    today_label = today_skills[-1]["name"] if today_skills else "none yet"
+    latest = sorted(skills, key=lambda s: (s["added"], s["name"]), reverse=True)[0] if skills else None
+    latest_name = latest["name"] if latest else "—"
+
     version = json.loads(
         (ROOT / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8")
     )["version"]
@@ -98,6 +126,10 @@ def main() -> None:
         page.replace("{{REPO}}", REPO)
         .replace("{{COUNT}}", str(len(skills)))
         .replace("{{VERSION}}", html.escape(version))
+        .replace("{{TODAY_COUNT}}", str(today_count))
+        .replace("{{TODAY_LABEL}}", html.escape(today_label))
+        .replace("{{LATEST_SKILL}}", html.escape(latest_name))
+        .replace("{{TICKER_ITEMS}}", ticker_items(skills, REPO))
         .replace(
             "{{SKILLS}}", "".join(row(i, skill) for i, skill in enumerate(skills, 1))
         )

@@ -110,6 +110,59 @@
     th.date { width: 120px; }
     td.date { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 
+    /* ---------- metrics strip ---------- */
+    .metrics {
+      display: flex; gap: 12px; margin: 28px 0 0; flex-wrap: wrap;
+    }
+    .metric-card {
+      flex: 1; min-width: 160px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 4px;
+    }
+    .metric-card .metric-value {
+      font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1;
+      color: var(--text);
+    }
+    .metric-card .metric-label {
+      font-size: 0.8rem; color: var(--faint); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600;
+    }
+    .metric-card .metric-sub {
+      font-size: 0.82rem; color: var(--muted); margin-top: 2px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .metric-card.highlight .metric-value { color: var(--accent); }
+
+    /* ---------- ticker bar ---------- */
+    .ticker-wrap {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      background: var(--text); color: var(--bg);
+      border-top: 1px solid color-mix(in srgb, var(--text) 80%, transparent);
+      padding: 0; overflow: hidden; height: 34px; display: flex; align-items: center;
+      font-size: 0.8rem; letter-spacing: 0.01em;
+    }
+    .ticker-label {
+      flex: none; background: var(--accent); color: #fff;
+      padding: 0 14px; height: 100%; display: flex; align-items: center;
+      font-weight: 700; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .ticker-track {
+      flex: 1; overflow: hidden; height: 100%; display: flex; align-items: center;
+    }
+    .ticker-inner {
+      display: flex; gap: 0; white-space: nowrap;
+      animation: ticker-scroll 42s linear infinite;
+      will-change: transform;
+    }
+    .ticker-inner:hover { animation-play-state: paused; }
+    .ticker-sep { padding: 0 20px; color: color-mix(in srgb, var(--bg) 40%, transparent); user-select: none; }
+    @keyframes ticker-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* push footer above fixed ticker */
+    body { padding-bottom: 34px; }
+
     footer {
       margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border);
       color: var(--faint); font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 8px 16px;
@@ -163,6 +216,24 @@
         </div>
       </div>
     </header>
+
+    <div class="metrics">
+      <div class="metric-card highlight">
+        <span class="metric-value">{{COUNT}}</span>
+        <span class="metric-label">Skills</span>
+        <span class="metric-sub">and counting</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-value">{{TODAY_COUNT}}</span>
+        <span class="metric-label">Added today</span>
+        <span class="metric-sub">{{TODAY_LABEL}}</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-value metric-latest-icon">↑</span>
+        <span class="metric-label">Latest skill</span>
+        <span class="metric-sub">{{LATEST_SKILL}}</span>
+      </div>
+    </div>
 
     <section>
       <div class="skills-head">
@@ -299,5 +370,11 @@
     // ── init ──────────────────────────────────────────────────────────
     applySort('newest')
   </script>
+  <div class="ticker-wrap" aria-hidden="true">
+    <span class="ticker-label">Live</span>
+    <div class="ticker-track">
+      <div class="ticker-inner" id="ticker-inner">{{TICKER_ITEMS}}{{TICKER_ITEMS}}</div>
+    </div>
+  </div>
 </body>
 </html>
