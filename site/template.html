@@ -28,31 +28,61 @@
     body {
       margin: 0; background: var(--bg); color: var(--text);
       font: 15px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      padding-top: 36px; /* news ticker height */
     }
-    main { max-width: 1520px; margin: 0 auto; padding: 56px 48px 40px; }
+    main { max-width: 1520px; margin: 0 auto; padding: 0 48px 40px; }
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
     code { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     h2 { font-size: 1.15rem; margin: 0; }
 
-    /* ---------- header: logo left; description, meta and install right ---------- */
-    .hero {
-      display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 56px;
-      align-items: center; padding: 8px 0 24px; border-bottom: 1px solid var(--border);
+    /* ---------- slim top bar ---------- */
+    .topbar {
+      display: flex; align-items: center; gap: 16px;
+      padding: 10px 48px; border-bottom: 1px solid var(--border);
+      background: var(--surface); flex-wrap: wrap;
+      position: sticky; top: 36px; z-index: 90;
     }
-    .hero h1 { margin: 0; }
-    .hero h1 img { display: block; width: 100%; max-width: 480px; height: auto; }
-    .lede { color: var(--muted); font-size: 1.05rem; margin: 0 0 10px; }
-    .meta { color: var(--faint); font-size: 0.9rem; margin: 0 0 22px; }
-    .meta a { color: var(--muted); }
-    .install { display: grid; gap: 6px; }
-    .install p { margin: 6px 0 0; color: var(--muted); font-size: 0.85rem; }
+    .topbar-logo img { display: block; height: 28px; width: auto; }
+    .topbar-divider { width: 1px; height: 20px; background: var(--border); flex: none; }
+    .topbar-tagline { color: var(--muted); font-size: 0.85rem; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .topbar-tagline a { color: var(--muted); }
+    .topbar-meta { display: flex; align-items: center; gap: 10px; flex: none; }
+    .count-badge {
+      background: var(--accent); color: #fff; border-radius: 20px;
+      padding: 1px 9px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .topbar-links { display: flex; align-items: center; gap: 10px; font-size: 0.82rem; color: var(--muted); }
+    .topbar-links a { color: var(--muted); }
+    .topbar-links a:hover { color: var(--text); }
 
+    /* install dropdown */
+    .install-drop { position: relative; }
+    .install-btn {
+      display: flex; align-items: center; gap: 5px;
+      font: inherit; font-size: 0.82rem; cursor: pointer;
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 7px; padding: 4px 11px;
+      white-space: nowrap;
+    }
+    .install-btn:hover { opacity: 0.88; }
+    .install-btn svg { flex: none; transition: transform 0.15s; }
+    .install-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+    .install-panel {
+      display: none; position: absolute; right: 0; top: calc(100% + 6px);
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 16px; min-width: 360px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 200;
+    }
+    .install-panel.open { display: block; }
+    .install-panel p { margin: 0 0 6px; color: var(--muted); font-size: 0.82rem; }
+    .install-panel p + p { margin-top: 10px; }
     .cmd {
       display: flex; align-items: center; gap: 8px; min-width: 0; background: var(--code);
       border: 1px solid var(--border); border-radius: 8px; padding: 6px 6px 6px 10px;
     }
-    .cmd code { flex: 1; min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+    .cmd code { flex: 1; min-width: 0; white-space: normal; overflow-wrap: anywhere; font-size: 0.8rem; }
     .cmd code span { white-space: nowrap; }
     .cmd button {
       flex: none; font: inherit; font-size: 0.78rem; cursor: pointer; color: var(--muted);
@@ -60,8 +90,11 @@
     }
     .cmd button:hover { color: var(--text); }
 
+    /* ---------- page body ---------- */
+    .page-body { padding-top: 24px; }
+
     /* ---------- skills table ---------- */
-    .skills-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 20px 0 14px; flex-wrap: wrap; }
+    .skills-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 14px; flex-wrap: wrap; }
     .skills-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     #skill-search {
       font: inherit; font-size: 0.9rem; padding: 6px 12px; border-radius: 8px;
@@ -110,26 +143,13 @@
     th.date { width: 120px; }
     td.date { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 
-    /* ---------- metrics strip ---------- */
-    .metrics {
-      display: flex; gap: 12px; margin: 28px 0 0; flex-wrap: wrap;
+    /* ---------- footer ---------- */
+    footer {
+      margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border);
+      color: var(--faint); font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 8px 16px;
+      justify-content: space-between;
     }
-    .metric-card {
-      flex: 1; min-width: 160px; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 4px;
-    }
-    .metric-card .metric-value {
-      font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1;
-      color: var(--text);
-    }
-    .metric-card .metric-label {
-      font-size: 0.8rem; color: var(--faint); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600;
-    }
-    .metric-card .metric-sub {
-      font-size: 0.82rem; color: var(--muted); margin-top: 2px;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .metric-card.highlight .metric-value { color: var(--accent); }
+    footer a { color: var(--muted); }
 
     /* ---------- news ticker bar ---------- */
     .ticker-wrap {
@@ -170,10 +190,7 @@
       will-change: transform;
     }
     .ticker-inner:hover { animation-play-state: paused; }
-    .ticker-item {
-      padding: 0 6px;
-      font-weight: 500;
-    }
+    .ticker-item { padding: 0 6px; font-weight: 500; }
     .ticker-item strong {
       color: #ffcc00; font-weight: 700; margin-right: 5px;
       text-transform: uppercase; font-size: 0.69rem; letter-spacing: 0.1em;
@@ -187,24 +204,16 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* push page content below fixed ticker */
-    body { padding-top: 36px; }
-
-    footer {
-      margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border);
-      color: var(--faint); font-size: 0.9rem; display: flex; flex-wrap: wrap; gap: 8px 16px;
-      justify-content: space-between;
-    }
-    footer a { color: var(--muted); }
-
-    /* ---------- narrow screens: stack the hero, turn rows into cards ---------- */
+    /* ---------- narrow screens ---------- */
     @media (max-width: 960px) {
-      .hero { grid-template-columns: minmax(0, 1fr); gap: 24px; }
-      .hero h1 img { max-width: 360px; }
+      .topbar { padding: 10px 20px; }
+      main { padding: 0 20px 40px; }
+      .topbar-tagline { display: none; }
       th.install-cell { width: 300px; }
     }
     @media (max-width: 760px) {
-      main { padding: 32px 16px; }
+      main { padding: 0 16px 32px; }
+      .topbar { padding: 8px 16px; top: 36px; }
       thead { display: none; }
       table, tbody, tr, td { display: block; width: auto !important; }
       tbody tr { padding: 14px 16px; }
@@ -215,91 +224,110 @@
       td.desc { margin: 4px 0 10px; }
       td.date { margin-top: 8px; font-size: 0.85rem; }
       td.date::before { content: "Added "; }
+      .install-panel { min-width: 280px; right: auto; left: 0; }
     }
   </style>
 </head>
 <body>
-  <main>
-    <header class="hero">
-      <h1><img src="assets/logo-800.png" alt="jars-skills" width="480" height="107" /></h1>
-      <div>
-        <p class="lede">
-          The agent skills I use most in my day-to-day work, shared in case they help you too. Each
-          one is a short playbook that teaches a coding agent one job, in the
-          <a href="https://agentskills.io">Agent Skills</a> format: Claude Code, Cursor, GitHub
-          Copilot, Codex, Gemini CLI and more. New skills land one at a time, aiming for one a day,
-          and only after I've used them for real.
-        </p>
-        <p class="meta">
-          by <a href="https://jishanahmed.in">Jishanahmed AR Shaikh (Mr. JARS)</a> ·
-          {{COUNT}} skills · v{{VERSION}} · MIT ·
-          <a href="https://github.com/{{REPO}}">GitHub</a>
-        </p>
-        <div class="install">
+
+  <!-- breaking news ticker -->
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-badge"><span class="badge-dot"></span>Breaking</div>
+    <div class="ticker-date">{{BUILD_DATE}}</div>
+    <div class="ticker-track">
+      <div class="ticker-inner">{{TICKER_ITEMS}}{{TICKER_ITEMS}}</div>
+    </div>
+  </div>
+
+  <!-- slim sticky top bar -->
+  <div class="topbar">
+    <a class="topbar-logo" href="/" aria-label="jars-skills home">
+      <img src="assets/logo-800.png" alt="jars-skills" height="28" />
+    </a>
+    <div class="topbar-divider"></div>
+    <span class="topbar-tagline">
+      Agent skills by <a href="https://jishanahmed.in">Mr. JARS</a> · for Claude Code, Cursor, Copilot, Codex, Gemini CLI and more
+    </span>
+    <div class="topbar-meta">
+      <span class="count-badge">{{COUNT}} skills</span>
+      <div class="topbar-links">
+        <a href="https://github.com/{{REPO}}">GitHub</a>
+        <span>·</span>
+        <a href="https://github.com/{{REPO}}/blob/main/CONTRIBUTING.md">Contribute</a>
+      </div>
+      <div class="install-drop">
+        <button class="install-btn" type="button" id="install-toggle" aria-expanded="false" aria-controls="install-panel">
+          Install
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="install-panel" id="install-panel" role="region">
           <p>Claude Code</p>
           <div class="cmd"><code>/plugin install jars-skills <span>--marketplace {{REPO}}</span></code><button type="button" data-copy="/plugin install jars-skills --marketplace {{REPO}}">Copy</button></div>
           <p>Any agent, via the <a href="https://skills.sh">skills CLI</a></p>
           <div class="cmd"><code>npx skills add <span>{{REPO}}</span></code><button type="button" data-copy="npx skills add {{REPO}}">Copy</button></div>
         </div>
       </div>
-    </header>
-
-    <div class="metrics">
-      <div class="metric-card highlight">
-        <span class="metric-value">{{COUNT}}</span>
-        <span class="metric-label">Skills</span>
-        <span class="metric-sub">and counting</span>
-      </div>
-      <div class="metric-card">
-        <span class="metric-value">{{TODAY_COUNT}}</span>
-        <span class="metric-label">Added today</span>
-        <span class="metric-sub">{{TODAY_LABEL}}</span>
-      </div>
-      <div class="metric-card">
-        <span class="metric-value metric-latest-icon">↑</span>
-        <span class="metric-label">Latest skill</span>
-        <span class="metric-sub">{{LATEST_SKILL}}</span>
-      </div>
     </div>
+  </div>
 
-    <section>
-      <div class="skills-head">
-        <h2>Skills</h2>
-        <div class="skills-controls">
-          <div class="sort-group">
-            <button type="button" class="sort-btn" data-sort="oldest" title="Oldest first">Oldest</button>
-            <button type="button" class="sort-btn" data-sort="newest" title="Newest first">Newest</button>
-            <button type="button" class="sort-btn" data-sort="az" title="A → Z">A→Z</button>
-            <button type="button" class="sort-btn" data-sort="za" title="Z → A">Z→A</button>
+  <main>
+    <div class="page-body">
+      <section>
+        <div class="skills-head">
+          <h2>Skills <span style="font-size:0.82rem;font-weight:400;color:var(--faint);margin-left:6px;">v{{VERSION}} · MIT</span></h2>
+          <div class="skills-controls">
+            <div class="sort-group">
+              <button type="button" class="sort-btn" data-sort="oldest" title="Oldest first">Oldest</button>
+              <button type="button" class="sort-btn" data-sort="newest" title="Newest first">Newest</button>
+              <button type="button" class="sort-btn" data-sort="az" title="A → Z">A→Z</button>
+              <button type="button" class="sort-btn" data-sort="za" title="Z → A">Z→A</button>
+            </div>
+            <input id="skill-search" type="search" placeholder="Filter skills…" autocomplete="off" />
           </div>
-          <input id="skill-search" type="search" placeholder="Filter skills…" autocomplete="off" />
         </div>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th class="num">#</th><th class="name">Skill</th><th>Description</th><th class="install-cell">Install</th><th class="date">Added</th></tr>
-          </thead>
-          <tbody>{{SKILLS}}
-            <tr id="no-results"><td colspan="5">No skills match your filter.</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="pagination" id="pagination">
-        <span id="page-info"></span>
-        <div class="page-btns">
-          <button id="page-prev" type="button">← Prev</button>
-          <button id="page-next" type="button">Next →</button>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th class="num">#</th><th class="name">Skill</th><th>Description</th><th class="install-cell">Install</th><th class="date">Added</th></tr>
+            </thead>
+            <tbody>{{SKILLS}}
+              <tr id="no-results"><td colspan="5">No skills match your filter.</td></tr>
+            </tbody>
+          </table>
         </div>
-      </div>
-    </section>
+        <div class="pagination" id="pagination">
+          <span id="page-info"></span>
+          <div class="page-btns">
+            <button id="page-prev" type="button">← Prev</button>
+            <button id="page-next" type="button">Next →</button>
+          </div>
+        </div>
+      </section>
 
-    <footer>
-      <span>Built with 💖 by <a href="https://jishanahmed.in">Mr. JARS</a></span>
-      <span><a href="https://github.com/{{REPO}}/blob/main/CONTRIBUTING.md">Contribute a skill</a></span>
-    </footer>
+      <footer>
+        <span>Built with 💖 by <a href="https://jishanahmed.in">Mr. JARS</a></span>
+        <span><a href="https://github.com/{{REPO}}/blob/main/CONTRIBUTING.md">Contribute a skill</a></span>
+      </footer>
+    </div>
   </main>
+
   <script>
+    // ── install dropdown ──────────────────────────────────────────────
+    const installToggle = document.getElementById('install-toggle')
+    const installPanel  = document.getElementById('install-panel')
+    installToggle.addEventListener('click', () => {
+      const open = installPanel.classList.toggle('open')
+      installToggle.setAttribute('aria-expanded', open)
+    })
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.install-drop')) {
+        installPanel.classList.remove('open')
+        installToggle.setAttribute('aria-expanded', 'false')
+      }
+    })
+
     // ── copy buttons ─────────────────────────────────────────────────
     document.addEventListener('click', async (event) => {
       const button = event.target.closest('button[data-copy]')
@@ -335,7 +363,6 @@
       })
       const rows = allRows().sort(comparators[key])
       rows.forEach(tr => tbody.insertBefore(tr, noResults))
-      // renumber
       rows.forEach((tr, i) => { const n = tr.querySelector('.num'); if (n) n.textContent = i + 1 })
       resetPagination()
     }
@@ -381,7 +408,6 @@
       const start = (currentPage - 1) * PER_PAGE
       const end   = start + PER_PAGE
       rows.forEach((tr, i) => { tr.style.display = (i >= start && i < end) ? '' : 'none' })
-      // hide rows that are filtered out regardless
       allRows().filter(tr => tr.dataset.hidden === '1').forEach(tr => { tr.style.display = 'none' })
       pageInfo.textContent = total === 0 ? '' : `${start + 1}–${Math.min(end, total)} of ${total}`
       btnPrev.disabled = currentPage === 1
@@ -397,12 +423,5 @@
     // ── init ──────────────────────────────────────────────────────────
     applySort('newest')
   </script>
-  <div class="ticker-wrap" aria-hidden="true">
-    <div class="ticker-badge"><span class="badge-dot"></span>Breaking</div>
-    <div class="ticker-date">{{BUILD_DATE}}</div>
-    <div class="ticker-track">
-      <div class="ticker-inner">{{TICKER_ITEMS}}{{TICKER_ITEMS}}</div>
-    </div>
-  </div>
 </body>
 </html>
