@@ -48,6 +48,7 @@ npx skills add jars-demo/jars-skills --skill commit-style  # just one
 
 | Skill | Use it when |
 | --- | --- |
+| [api-design](skills/api-design/SKILL.md) | Designing or reviewing HTTP APIs: picks the right method and URL, defines request/response shapes, chooses status codes correctly, adds pagination, documents the contract in OpenAPI — no broken conventions, no injection holes. |
 | [changelog](skills/changelog/SKILL.md) | Cutting a release or updating CHANGELOG.md: reads commits and diffs since the last tag, categorises changes by section, proposes a version bump, and writes a user-facing entry in Keep a Changelog format. |
 | [code-review](skills/code-review/SKILL.md) | Reviewing pull requests: reads the actual diff, flags real issues (bugs, security, performance, missing tests), groups feedback by severity, never rubber-stamps. |
 | [commit-style](skills/commit-style/SKILL.md) | Committing changes: plans small logical commits, follows the repo's conventions, writes clear Conventional Commits messages, never pushes unasked. |
@@ -57,6 +58,7 @@ npx skills add jars-demo/jars-skills --skill commit-style  # just one
 | [pr-description](skills/pr-description/SKILL.md) | Opening or describing a pull request: reads the real diff, follows the repo's PR template, writes a reviewer-ready title and description with honest test notes. |
 | [refactor](skills/refactor/SKILL.md) | Refactoring code safely: renames, extracts functions, splits large files (500–1200 line limits), modularises by responsibility, adds structured logging at the right level, improves comments — tests pass at every step. |
 | [release](skills/release/SKILL.md) | Cutting a release end-to-end: bumps the version, moves changelog entries, commits, and creates an annotated git tag — then stops and hands the user the push commands. Never pushes or publishes without being asked. |
+| [sql-query](skills/sql-query/SKILL.md) | Writing or reviewing SQL: parameterises queries, reads the schema first, picks the right JOIN, avoids NULL traps, checks query plans, adds indexes correctly, and never interpolates user input into SQL strings. |
 | [write-tests](skills/write-tests/SKILL.md) | Writing meaningful tests: reads the code first, covers edge cases and error paths, names tests as sentences, follows Arrange-Act-Assert, mocks only external boundaries, and never writes tests just for coverage. |
 
 ## Layout
