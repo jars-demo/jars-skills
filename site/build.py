@@ -73,21 +73,25 @@ def load_skills() -> list[dict[str, str]]:
 def ticker_items(skills: list[dict[str, str]], repo: str) -> str:
     """Build the repeating ticker message string."""
     static = [
-        f"{len(skills)} skills and counting · one a day, only after I've used it for real",
-        "Works with Claude Code · Cursor · GitHub Copilot · Codex · Gemini CLI and more",
-        f"Install in one line → npx skills add {repo}",
-        "Open source · MIT licence · contributions welcome",
-        "Every skill is one job, one file, under 500 lines",
+        ("JARS SKILLS", f"{len(skills)} skills published and counting"),
+        ("INSTALL", f"npx skills add {repo}"),
+        ("WORKS WITH", "Claude Code, Cursor, GitHub Copilot, Codex, Gemini CLI and more"),
+        ("OPEN SOURCE", "MIT licence, contributions welcome"),
+        ("FORMAT", "One skill per job, one file, under 500 lines"),
     ]
-    # inject the 3 most recent skills as dynamic items
+    # 3 most recent skills as news items
     recent = sorted(skills, key=lambda s: (s["added"], s["name"]), reverse=True)[:3]
     dynamic = [
-        f"NEW: {s['name']} — {s['what'][:80].rstrip()}"
+        ("NEW SKILL", f"{s['name']}: {s['what'][:90].rstrip().rstrip('.')}")
         for s in recent
     ]
     all_messages = dynamic + static
-    sep = '<span class="ticker-sep">·</span>'
-    items = [f'<span>{html.escape(msg)}</span>{sep}' for msg in all_messages]
+    sep = '<span class="ticker-sep">|</span>'
+    items = []
+    for tag, msg in all_messages:
+        items.append(
+            f'<span class="ticker-item"><strong>{html.escape(tag)}</strong>{html.escape(msg)}</span>{sep}'
+        )
     return "".join(items)
 
 
@@ -121,6 +125,7 @@ def main() -> None:
     version = json.loads(
         (ROOT / ".claude-plugin" / "plugin.json").read_text(encoding="utf-8")
     )["version"]
+    build_date = date.today().strftime("%d %b %Y").upper()
     page = (ROOT / "site" / "template.html").read_text(encoding="utf-8")
     page = (
         page.replace("{{REPO}}", REPO)
@@ -129,6 +134,7 @@ def main() -> None:
         .replace("{{TODAY_COUNT}}", str(today_count))
         .replace("{{TODAY_LABEL}}", html.escape(today_label))
         .replace("{{LATEST_SKILL}}", html.escape(latest_name))
+        .replace("{{BUILD_DATE}}", html.escape(build_date))
         .replace("{{TICKER_ITEMS}}", ticker_items(skills, REPO))
         .replace(
             "{{SKILLS}}", "".join(row(i, skill) for i, skill in enumerate(skills, 1))

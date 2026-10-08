@@ -131,37 +131,64 @@
     }
     .metric-card.highlight .metric-value { color: var(--accent); }
 
-    /* ---------- ticker bar ---------- */
+    /* ---------- news ticker bar ---------- */
     .ticker-wrap {
-      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
-      background: var(--text); color: var(--bg);
-      border-top: 1px solid color-mix(in srgb, var(--text) 80%, transparent);
-      padding: 0; overflow: hidden; height: 34px; display: flex; align-items: center;
-      font-size: 0.8rem; letter-spacing: 0.01em;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: #111; color: #f5f5f5;
+      border-bottom: 2px solid #cc0000;
+      height: 36px; display: flex; align-items: stretch;
+      font-size: 0.78rem; letter-spacing: 0.02em;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.35);
     }
-    .ticker-label {
-      flex: none; background: var(--accent); color: #fff;
-      padding: 0 14px; height: 100%; display: flex; align-items: center;
-      font-weight: 700; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
-      white-space: nowrap;
+    .ticker-badge {
+      flex: none; background: #cc0000; color: #fff;
+      padding: 0 13px; display: flex; align-items: center; gap: 7px;
+      font-weight: 800; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      white-space: nowrap; border-right: 2px solid #aa0000;
+    }
+    .ticker-badge .badge-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: #fff;
+      animation: badge-blink 1.2s ease-in-out infinite;
+      flex: none;
+    }
+    @keyframes badge-blink {
+      0%, 100% { opacity: 1; } 50% { opacity: 0.2; }
+    }
+    .ticker-date {
+      flex: none; padding: 0 14px; display: flex; align-items: center;
+      font-weight: 600; font-size: 0.72rem; letter-spacing: 0.06em;
+      color: #aaa; border-right: 1px solid #333; white-space: nowrap;
+      text-transform: uppercase;
     }
     .ticker-track {
-      flex: 1; overflow: hidden; height: 100%; display: flex; align-items: center;
+      flex: 1; overflow: hidden; display: flex; align-items: center;
     }
     .ticker-inner {
-      display: flex; gap: 0; white-space: nowrap;
-      animation: ticker-scroll 42s linear infinite;
+      display: flex; align-items: center; white-space: nowrap;
+      animation: ticker-scroll 55s linear infinite;
       will-change: transform;
     }
     .ticker-inner:hover { animation-play-state: paused; }
-    .ticker-sep { padding: 0 20px; color: color-mix(in srgb, var(--bg) 40%, transparent); user-select: none; }
+    .ticker-item {
+      padding: 0 6px;
+      font-weight: 500;
+    }
+    .ticker-item strong {
+      color: #ffcc00; font-weight: 700; margin-right: 5px;
+      text-transform: uppercase; font-size: 0.69rem; letter-spacing: 0.1em;
+    }
+    .ticker-sep {
+      color: #cc0000; padding: 0 14px; font-size: 0.85rem;
+      font-weight: 700; user-select: none; flex: none;
+    }
     @keyframes ticker-scroll {
       0%   { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
 
-    /* push footer above fixed ticker */
-    body { padding-bottom: 34px; }
+    /* push page content below fixed ticker */
+    body { padding-top: 36px; }
 
     footer {
       margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border);
@@ -371,9 +398,10 @@
     applySort('newest')
   </script>
   <div class="ticker-wrap" aria-hidden="true">
-    <span class="ticker-label">Live</span>
+    <div class="ticker-badge"><span class="badge-dot"></span>Breaking</div>
+    <div class="ticker-date">{{BUILD_DATE}}</div>
     <div class="ticker-track">
-      <div class="ticker-inner" id="ticker-inner">{{TICKER_ITEMS}}{{TICKER_ITEMS}}</div>
+      <div class="ticker-inner">{{TICKER_ITEMS}}{{TICKER_ITEMS}}</div>
     </div>
   </div>
 </body>
