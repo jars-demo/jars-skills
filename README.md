@@ -60,6 +60,7 @@ npx skills add jars-demo/jars-skills --skill commit-style  # just one
 | [refactor](skills/refactor/SKILL.md) | Refactoring code safely: renames, extracts functions, splits large files (500–1200 line limits), modularises by responsibility, adds structured logging at the right level, improves comments — tests pass at every step. |
 | [release](skills/release/SKILL.md) | Cutting a release end-to-end: bumps the version, moves changelog entries, commits, and creates an annotated git tag — then stops and hands the user the push commands. Never pushes or publishes without being asked. |
 | [sql-query](skills/sql-query/SKILL.md) | Writing or reviewing SQL: parameterises queries, reads the schema first, picks the right JOIN, avoids NULL traps, checks query plans, adds indexes correctly, and never interpolates user input into SQL strings. |
+| [tokenjars](skills/tokenjars/SKILL.md) | Reducing unnecessary token consumption in AI coding-agent sessions: cuts verbose output, redundant tool calls, and repeated file reads while preserving technical accuracy, implementation quality, and all the evidence needed to diagnose and verify work. Use when a session is growing expensive, an agent is repeating itself, or you want concise, efficient engineering communication. |
 | [write-tests](skills/write-tests/SKILL.md) | Writing meaningful tests: reads the code first, covers edge cases and error paths, names tests as sentences, follows Arrange-Act-Assert, mocks only external boundaries, and never writes tests just for coverage. |
 
 ## Layout
