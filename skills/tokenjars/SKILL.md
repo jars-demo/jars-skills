@@ -1,12 +1,6 @@
 ---
 name: tokenjars
-description: >
-  Reduce unnecessary token consumption in AI coding-agent sessions without losing technical
-  accuracy, implementation quality, or essential evidence. Use when the user says "save
-  tokens", "be more concise", "use fewer tokens", "stop repeating yourself", "summarize
-  your context", "tokenjars", "token mode", or when a session is growing long and the
-  agent is repeating itself, re-reading unchanged files, or producing verbose tool-call
-  narration. Works in Balanced (default), Strict, or Minimal mode.
+description: "Reduce unnecessary token consumption in AI coding-agent sessions without losing technical accuracy, implementation quality, or essential evidence. Use when the user says 'save tokens', 'be more concise', 'use fewer tokens', 'stop repeating yourself', 'tokenjars', or when a session is growing long and the agent is repeating itself, re-reading unchanged files, or producing verbose tool-call narration. Works in Balanced (default), Strict, or Minimal mode."
 metadata:
   author: Jishanahmed AR Shaikh
   product: TokenJARS
