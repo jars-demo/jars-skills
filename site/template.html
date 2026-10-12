@@ -370,8 +370,8 @@
     let currentSort = 'oldest'
 
     const comparators = {
-      oldest: (a, b) => a.dataset.date.localeCompare(b.dataset.date) || a.dataset.name.localeCompare(b.dataset.name),
-      newest: (a, b) => b.dataset.date.localeCompare(a.dataset.date) || a.dataset.name.localeCompare(b.dataset.name),
+      oldest: (a, b) => (+a.dataset.ts) - (+b.dataset.ts) || a.dataset.name.localeCompare(b.dataset.name),
+      newest: (a, b) => (+b.dataset.ts) - (+a.dataset.ts) || a.dataset.name.localeCompare(b.dataset.name),
       az:     (a, b) => a.dataset.name.localeCompare(b.dataset.name),
       za:     (a, b) => b.dataset.name.localeCompare(a.dataset.name),
     }

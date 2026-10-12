@@ -35,8 +35,9 @@ def split_description(description: str) -> tuple[str, str]:
     return what.strip(), (sep + when).strip() if sep else ""
 
 
-def added_on(path: Path) -> str:
-    """Date the file was first committed (ISO), or today for a skill not committed yet."""
+def added_on(path: Path) -> tuple[str, str]:
+    """Return (ISO date, unix timestamp) when the file was first committed.
+    Falls back to today and '0' for uncommitted files."""
     try:
         out = subprocess.run(
             [
@@ -44,7 +45,7 @@ def added_on(path: Path) -> str:
                 "log",
                 "--diff-filter=A",
                 "--follow",
-                "--format=%as",
+                "--format=%as %at",
                 "--",
                 str(path),
             ],
@@ -52,10 +53,15 @@ def added_on(path: Path) -> str:
             capture_output=True,
             text=True,
             check=True,
-        ).stdout.split()
+        ).stdout.split("\n")
+        out = [l.strip() for l in out if l.strip()]
     except (OSError, subprocess.CalledProcessError):
         out = []
-    return out[-1] if out else date.today().isoformat()
+    if out:
+        parts = out[-1].split()
+        return parts[0], parts[1]
+    today = date.today().isoformat()
+    return today, "0"
 
 
 def load_skills() -> list[dict[str, str]]:
@@ -64,8 +70,9 @@ def load_skills() -> list[dict[str, str]]:
         meta = frontmatter(path.read_text(encoding="utf-8"))
         name = meta.get("name") or path.parent.name
         what, when = split_description(meta.get("description", ""))
+        added_date, added_ts = added_on(path)
         skills.append(
-            {"name": name, "what": what, "when": when, "added": added_on(path)}
+            {"name": name, "what": what, "when": when, "added": added_date, "ts": added_ts}
         )
     return sorted(skills, key=lambda skill: (skill["added"], skill["name"]))
 
@@ -80,7 +87,7 @@ def ticker_items(skills: list[dict[str, str]], repo: str) -> str:
         ("FORMAT", "One skill per job, one file, under 500 lines"),
     ]
     # 3 most recent skills as news items
-    recent = sorted(skills, key=lambda s: (s["added"], s["name"]), reverse=True)[:3]
+    recent = sorted(skills, key=lambda s: (s["ts"], s["name"]), reverse=True)[:3]
     dynamic = [
         ("NEW SKILL", f"{s['name']}: {s['what'][:90].rstrip().rstrip('.')}")
         for s in recent
@@ -104,7 +111,7 @@ def row(number: int, skill: dict[str, str]) -> str:
     command = f"npx skills add {REPO} --skill {name}"
     when = f'<p class="when">{html.escape(skill["when"])}</p>' if skill["when"] else ""
     return f"""
-            <tr id="{name}" data-name="{name}" data-date="{skill["added"]}">
+            <tr id="{name}" data-name="{name}" data-date="{skill["added"]}" data-ts="{skill["ts"]}">
               <td class="num">{number}</td>
               <td class="name"><a href="https://github.com/{REPO}/blob/main/skills/{name}/SKILL.md">{name}</a></td>
               <td class="desc"><p>{html.escape(skill["what"])}</p>{when}</td>
@@ -119,7 +126,7 @@ def main() -> None:
     today_skills = [s for s in skills if s["added"] == today]
     today_count = len(today_skills)
     today_label = today_skills[-1]["name"] if today_skills else "none yet"
-    latest = sorted(skills, key=lambda s: (s["added"], s["name"]), reverse=True)[0] if skills else None
+    latest = sorted(skills, key=lambda s: (s["ts"], s["name"]), reverse=True)[0] if skills else None
     latest_name = latest["name"] if latest else "—"
 
     version = json.loads(
