@@ -48,6 +48,7 @@ npx skills add jars-demo/jars-skills --skill commit-style  # just one
 
 | # | Skill | Use it when |
 | --- | --- | --- |
+| 31 | [background-jobs](skills/background-jobs/SKILL.md) | Designing, implementing, and operating background job queues: picks the right backend (BullMQ, Celery, Sidekiq, pg-boss), makes jobs idempotent and safe to retry, sets concurrency and back-off correctly, handles dead-letter queues, and monitors job throughput and lag. |
 | 30 | [feature-flags](skills/feature-flags/SKILL.md) | Implementing, gating, and cleaning up feature flags: picks the right flag type (boolean, percentage rollout, user-targeted), wraps the SDK in a thin abstraction, gates new code without coupling business logic to the flag system, and removes stale flags safely after full rollout. |
 | 29 | [secrets-audit](skills/secrets-audit/SKILL.md) | Scanning, detecting, and remediating accidentally committed secrets: runs gitleaks or trufflehog against the repo history, triages real findings from false positives, rotates the exposed credential immediately, rewrites history only when safe, and adds pre-commit hooks and CI checks to prevent recurrence. |
 | 28 | [monitoring](skills/monitoring/SKILL.md) | Adding application monitoring, metrics, and alerting: instruments the app with Prometheus/OpenTelemetry, exposes `/health` and `/metrics` endpoints, defines alert rules for error rate and latency p99, wires up a Grafana dashboard, and never leaks internal topology through public probes. |
