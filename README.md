@@ -48,6 +48,7 @@ npx skills add jars-demo/jars-skills --skill commit-style  # just one
 
 | # | Skill | Use it when |
 | --- | --- | --- |
+| 28 | [monitoring](skills/monitoring/SKILL.md) | Adding application monitoring, metrics, and alerting: instruments the app with Prometheus/OpenTelemetry, exposes `/health` and `/metrics` endpoints, defines alert rules for error rate and latency p99, wires up a Grafana dashboard, and never leaks internal topology through public probes. |
 | 27 | [websockets](skills/websockets/SKILL.md) | Implementing WebSocket connections for real-time features: authenticates on the upgrade handshake, validates all incoming messages, uses Socket.IO rooms for targeted delivery, scales across instances with the Redis adapter, and handles reconnection and disconnect cleanup correctly. |
 | 26 | [rate-limiting](skills/rate-limiting/SKILL.md) | Adding rate limiting to protect APIs from abuse and brute-force attacks: picks the right algorithm (sliding window, token bucket), scopes limits to user ID or IP, wires up Redis-backed counters, returns `429` with `Retry-After`, covers nginx config, and never limits health check endpoints. |
 | 25 | [error-handling](skills/error-handling/SKILL.md) | Adding and improving error handling: defines a custom error class hierarchy, adds a global handler that never leaks stack traces, returns consistent error response shapes, wraps async handlers, eliminates swallowed errors, and distinguishes operational from programmer errors. |
