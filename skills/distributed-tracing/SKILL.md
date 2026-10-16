@@ -1,14 +1,6 @@
 ---
 name: distributed-tracing
-description: >
-  Instrumenting services with distributed tracing end-to-end: initialises the OpenTelemetry SDK
-  before any other import, propagates W3C TraceContext across HTTP calls, message queues, and
-  database queries, adds meaningful span attributes and events, configures head-based and
-  tail-based sampling, exports to Jaeger or Tempo, and reads traces to diagnose latency and
-  failure across service boundaries. Use when you want to "add distributed tracing", "instrument
-  with OpenTelemetry", "set up Jaeger or Tempo", "trace requests across services", "add trace
-  context to logs", "debug slow requests", "find where latency comes from", or "correlate logs
-  and traces".
+description: Instrumenting services with distributed tracing end-to-end: initialises the OpenTelemetry SDK before any other import, propagates W3C TraceContext across HTTP calls, message queues, and database queries, adds meaningful span attributes, configures head-based and tail-based sampling, exports to Jaeger or Tempo, and correlates traces with logs to diagnose latency across service boundaries. Use when you want to add distributed tracing, instrument with OpenTelemetry, set up Jaeger or Tempo, trace requests across services, add trace context to logs, debug slow requests, or correlate logs and traces.
 ---
 
 ## distributed-tracing
