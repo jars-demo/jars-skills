@@ -1,13 +1,6 @@
 ---
 name: graceful-shutdown
-description: >
-  Implementing graceful shutdown so a service drains cleanly on SIGTERM: stops accepting new
-  requests, waits for in-flight requests to complete, flushes background job queues, closes
-  database and cache connections in the correct order, and exits with the right code — without
-  dropping requests or leaving zombie connections. Use when you want to "add graceful shutdown",
-  "handle SIGTERM", "stop dropping requests on deploy", "drain in-flight requests", "close
-  database connections cleanly", "handle Kubernetes pod termination", "fix connection pool
-  errors on restart", or "implement a shutdown hook".
+description: Implementing graceful shutdown so a service drains cleanly on SIGTERM: stops accepting new requests, waits for in-flight requests to complete, closes database and cache connections in the correct order, configures Kubernetes terminationGracePeriodSeconds correctly, and returns 503 from the health check immediately so the load balancer stops routing before the drain starts. Use when you want to add graceful shutdown, handle SIGTERM, stop dropping requests on deploy, drain in-flight requests, close database connections cleanly, handle Kubernetes pod termination, or implement a shutdown hook.
 ---
 
 ## graceful-shutdown
