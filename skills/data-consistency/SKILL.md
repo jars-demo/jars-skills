@@ -1,14 +1,6 @@
 ---
 name: data-consistency
-description: >
-  Reasoning about and implementing data consistency in distributed systems: picks the right
-  consistency model (strong, eventual, causal), chooses a replication strategy (single-leader,
-  multi-leader, leaderless), handles conflict detection and resolution, prevents split-brain,
-  applies the right isolation level for database transactions, and makes deliberate CAP and
-  PACELC trade-offs. Use when you want to "design a distributed system", "handle concurrent
-  writes", "avoid split-brain", "choose a consistency model", "implement optimistic locking",
-  "design for high availability", "handle replication lag", "use CRDTs", or "reason about
-  CAP theorem".
+description: Reasoning about and implementing data consistency in distributed systems: picks the right consistency model (linearisable, causal, eventual), chooses a replication strategy, applies the right isolation level, resolves conflicts with LWW/vector clocks/CRDTs, prevents split-brain with fencing tokens, and makes deliberate CAP and PACELC trade-offs. Use when you want to design a distributed system, handle concurrent writes, avoid split-brain, choose a consistency model, implement optimistic locking, design for high availability, handle replication lag, use CRDTs, or reason about CAP theorem.
 ---
 
 ## data-consistency
