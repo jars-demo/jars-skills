@@ -1,12 +1,6 @@
 ---
 name: monitoring
-description: >
-  Adding application monitoring, metrics, and alerting: instruments the app with a metrics library
-  (Prometheus/OpenTelemetry), exposes a /health and /metrics endpoint, defines alert rules for
-  error rate, latency p99, and saturation, wires up a Grafana dashboard, and avoids leaking
-  internal topology through public probes. Use when you want to "add monitoring", "set up
-  Prometheus", "add a health check endpoint", "instrument my app", "set up Grafana", "add
-  alerts", "track error rate or latency", or "make my service observable".
+description: Adding application monitoring, metrics, and alerting: instruments the app with Prometheus/OpenTelemetry, exposes /health and /metrics endpoints, defines alert rules for error rate and latency p99, wires up a Grafana dashboard, and never leaks internal topology through public probes. Use when you want to add monitoring, set up Prometheus, add a health check endpoint, instrument my app, set up Grafana, add alerts, track error rate or latency, or make my service observable.
 ---
 
 ## monitoring
