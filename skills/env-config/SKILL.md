@@ -1,13 +1,6 @@
 ---
 name: env-config
-description: >
-  Designing and implementing a typed, validated configuration system for an application:
-  centralises all env var reads into one config module, validates and fails fast at startup
-  with a clear error, distinguishes secrets from plain config, maintains a .env.example with
-  every key documented, and prevents os.environ / process.env scattered across the codebase.
-  Use when you want to "set up config properly", "validate environment variables at startup",
-  "add a config module", "manage secrets vs config", "structure .env files", "fail fast on
-  missing config", or "stop using os.environ everywhere".
+description: Designing a typed, validated configuration system: centralises all env var reads into one config module, validates and fails fast at startup with a clear error, distinguishes secrets from plain config, maintains a .env.example with every key documented, and prevents os.environ / process.env scattered across the codebase. Use when you want to set up config properly, validate environment variables at startup, add a config module, manage secrets vs config, structure .env files, fail fast on missing config, or stop using os.environ everywhere.
 ---
 
 ## env-config
