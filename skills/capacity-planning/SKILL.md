@@ -1,14 +1,6 @@
 ---
 name: capacity-planning
-description: >
-  Modelling load, projecting resource ceilings, and deciding when and how to scale: derives
-  request rates and data volumes from first principles, identifies the bottleneck resource
-  (CPU, memory, I/O, connections, threads), calculates headroom and time-to-saturation,
-  designs load tests that reflect real traffic shape, interprets results, and translates
-  findings into concrete scaling decisions. Use when you want to "plan capacity", "estimate
-  how much traffic we can handle", "find the bottleneck", "calculate how many servers we need",
-  "plan for a traffic spike", "design a load test", "project database growth", "estimate
-  connection pool size", or "prevent running out of headroom".
+description: Modelling load, projecting resource ceilings, and deciding when to scale: derives RPS and data-volume limits from first principles, identifies the bottleneck resource (CPU, memory, DB connections, I/O) with back-of-envelope math, calculates time-to-saturation, designs load tests that reflect real traffic shape, applies Little's Law to size thread and connection pools, and translates findings into concrete scaling decisions. Use when you want to plan capacity, estimate how much traffic we can handle, find the bottleneck, calculate how many servers we need, plan for a traffic spike, design a load test, project database growth, or prevent running out of headroom.
 ---
 
 ## capacity-planning
