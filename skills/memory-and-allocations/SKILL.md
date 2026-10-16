@@ -1,14 +1,6 @@
 ---
 name: memory-and-allocations
-description: >
-  Profiling and fixing memory leaks, excessive heap allocations, and GC pressure: captures heap
-  snapshots and allocation timelines, identifies retaining paths and dominator objects, fixes
-  common leak patterns (event listener accumulation, closure captures, unbounded caches, dangling
-  timers), reduces allocation rate to lower GC pause frequency, and applies the same workflow
-  across Node.js, Python, Go, and JVM runtimes. Use when you want to "fix a memory leak", "reduce
-  memory usage", "profile heap allocations", "fix high GC pressure", "analyse a heap dump",
-  "find what is retaining memory", "out of memory crash", "RSS keeps growing", or "reduce
-  allocation rate".
+description: Profiling and fixing memory leaks, excessive heap allocations, and GC pressure: captures heap snapshots and allocation timelines, identifies retaining paths and dominator objects, fixes event-listener accumulation, closure captures, unbounded caches, and goroutine leaks, and applies the same workflow across Node.js, Python, Go, and JVM runtimes. Use when you want to fix a memory leak, reduce memory usage, profile heap allocations, fix high GC pressure, analyse a heap dump, find what is retaining memory, debug an OOM crash, or RSS keeps growing.
 ---
 
 ## memory-and-allocations
