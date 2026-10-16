@@ -1,12 +1,6 @@
 ---
 name: background-jobs
-description: >
-  Designing, implementing, and operating background job queues: picks the right queue backend
-  (BullMQ, Celery, Sidekiq, pg-boss), makes jobs idempotent and safe to retry, sets concurrency
-  and back-off correctly, handles failure and dead-letter queues, and monitors job throughput and
-  lag. Use when you want to "add a background job", "process tasks asynchronously", "send emails
-  in the background", "set up a job queue", "use BullMQ or Celery or Sidekiq", "schedule a
-  recurring task", "handle retries", or "process a queue".
+description: Designing, implementing, and operating background job queues: picks the right backend (BullMQ, Celery, Sidekiq, pg-boss), makes jobs idempotent and safe to retry, sets concurrency and back-off correctly, handles dead-letter queues, and monitors job throughput and lag. Use when you want to add a background job, process tasks asynchronously, send emails in the background, set up a job queue, use BullMQ or Celery or Sidekiq, schedule a recurring task, handle retries, or process a queue.
 ---
 
 ## background-jobs
