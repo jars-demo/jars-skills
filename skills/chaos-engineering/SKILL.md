@@ -1,13 +1,6 @@
 ---
 name: chaos-engineering
-description: >
-  Running controlled chaos experiments to find resilience weaknesses before production does:
-  defines a steady-state hypothesis, injects realistic faults (latency, packet loss, process
-  kill, disk fill, dependency failure), limits blast radius, observes system behaviour against
-  the hypothesis, and turns findings into hardening tasks. Use when you want to "run a chaos
-  experiment", "test resilience", "simulate a database outage", "inject latency", "do a GameDay",
-  "test circuit breakers", "verify retry logic works", "test what happens when a dependency is
-  down", "find hidden failure modes", or "chaos test a Kubernetes service".
+description: Running controlled chaos experiments to find resilience weaknesses before production does: defines a steady-state hypothesis, injects realistic faults (latency, pod kill, disk fill, dependency failure) with Toxiproxy, tc/netem, Litmus, and stress-ng, limits blast radius, observes system behaviour against the hypothesis, runs a GameDay, and turns findings into hardening tasks. Use when you want to run a chaos experiment, test resilience, simulate a database outage, inject latency, do a GameDay, test circuit breakers, verify retry logic works, or find hidden failure modes.
 ---
 
 ## chaos-engineering
