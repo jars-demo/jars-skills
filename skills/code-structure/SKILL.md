@@ -1,14 +1,6 @@
 ---
 name: code-structure
-description: >
-  Structuring, naming, and organising a codebase for long-term navigability: enforces a 696-line
-  file ceiling, splits files by single responsibility, applies consistent snake_case / PascalCase
-  / SCREAMING_SNAKE naming, wires structured logging with full error context at every boundary,
-  adds file-level navigation comments, and scaffolds a clean folder hierarchy where every
-  directory has exactly one job. Use when you want to "structure a project properly", "clean up
-  a messy codebase", "split a large file", "add proper logging", "set up a folder structure",
-  "enforce naming conventions", "make the code easier to navigate", "avoid a god file", or
-  "set up a clean architecture".
+description: Structuring and naming a codebase for long-term navigability: enforces a 696-line file ceiling, splits files by single responsibility, applies snake_case / PascalCase / SCREAMING_SNAKE consistently, wires structured logging with full error context at every boundary, adds file-level navigation headers, and scaffolds a clean folder hierarchy where every directory has exactly one job. Use when you want to structure a project properly, clean up a messy codebase, split a large file, add proper logging, set up a folder structure, enforce naming conventions, make the code easier to navigate, avoid a god file, or set up a clean architecture.
 ---
 
 ## code-structure
