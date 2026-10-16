@@ -1,12 +1,6 @@
 ---
 name: secrets-audit
-description: >
-  Scanning, detecting, and remediating accidentally committed secrets: runs gitleaks or trufflehog
-  against the repo history, triages real findings from false positives, rotates the exposed
-  credential immediately, rewrites history only when safe, and adds pre-commit hooks and CI checks
-  to prevent recurrence. Use when you want to "scan for secrets", "find leaked credentials",
-  "check if I committed an API key", "remove a secret from git history", "add a secrets scanner
-  to CI", or "prevent secret leaks".
+description: Scanning, detecting, and remediating accidentally committed secrets: runs gitleaks or trufflehog against the repo history, triages real findings from false positives, rotates the exposed credential immediately, rewrites history only when safe, and adds pre-commit hooks and CI checks to prevent recurrence. Use when you want to scan for secrets, find leaked credentials, check if I committed an API key, remove a secret from git history, add a secrets scanner to CI, or prevent secret leaks.
 ---
 
 ## secrets-audit
