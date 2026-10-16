@@ -1,14 +1,6 @@
 ---
 name: query-optimization
-description: >
-  Diagnosing and fixing slow database queries: reads and interprets EXPLAIN ANALYZE output,
-  understands what the query planner chooses and why, identifies sequential scans, bad join
-  orders, and cardinality misestimates, creates the right index type for the access pattern,
-  rewrites pathological queries (N+1, correlated subqueries, implicit casts), forces statistics
-  refresh when the planner is wrong, and applies the same diagnostic workflow across PostgreSQL,
-  MySQL, and SQLite. Use when you want to "optimize a slow query", "read an EXPLAIN plan",
-  "add the right index", "fix a sequential scan", "fix N+1 queries", "the query planner is
-  wrong", "reduce query time", "fix a slow JOIN", or "understand why a query is slow".
+description: Diagnosing and fixing slow database queries: reads EXPLAIN ANALYZE output node by node, identifies sequential scans, cardinality misestimates, and bad join orders, creates the right index type (B-tree, partial, covering, GIN, BRIN), rewrites N+1s, correlated subqueries, implicit casts, and OFFSET pagination, and forces statistics refresh when the planner is wrong. Use when you want to optimize a slow query, read an EXPLAIN plan, add the right index, fix a sequential scan, fix N+1 queries, the query planner is wrong, reduce query time, fix a slow JOIN, or understand why a query is slow.
 ---
 
 ## query-optimization
