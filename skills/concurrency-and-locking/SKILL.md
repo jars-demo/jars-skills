@@ -1,14 +1,6 @@
 ---
 name: concurrency-and-locking
-description: >
-  Identifying and fixing race conditions, deadlocks, and concurrency bugs: recognises data races
-  and TOCTOU patterns, establishes happens-before relationships, chooses the right primitive
-  (mutex, rwlock, atomic, channel, semaphore), detects and breaks deadlock cycles, uses
-  lock-free and wait-free techniques where appropriate, and applies the same reasoning across
-  Go, Java/JVM, Python, and Node.js runtimes. Use when you want to "fix a race condition",
-  "debug a deadlock", "make this thread-safe", "use atomics correctly", "design a lock
-  hierarchy", "understand the memory model", "use channels vs mutexes", "avoid lock contention",
-  or "reason about concurrent code".
+description: Identifying and fixing race conditions, deadlocks, and concurrency bugs: establishes happens-before relationships, chooses the right primitive (mutex, rwlock, atomic, channel), detects and breaks deadlock cycles with lock ordering, fixes TOCTOU races, uses CAS loops and copy-on-write atomics, pads to cache lines to eliminate false sharing, and runs the race detector. Use when you want to fix a race condition, debug a deadlock, make this thread-safe, use atomics correctly, design a lock hierarchy, understand the memory model, use channels vs mutexes, avoid lock contention, or reason about concurrent code.
 ---
 
 ## concurrency-and-locking
