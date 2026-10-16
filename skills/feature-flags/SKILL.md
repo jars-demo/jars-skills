@@ -1,13 +1,6 @@
 ---
 name: feature-flags
-description: >
-  Implementing, gating, and cleaning up feature flags: picks the right flag type (boolean,
-  percentage rollout, user-targeted), wires up a flag client (LaunchDarkly, Unleash, Flagsmith,
-  or a homegrown config), wraps new code in flag checks without coupling business logic to the
-  flag system, tracks flag age, and removes stale flags safely. Use when you want to "add a
-  feature flag", "do a gradual rollout", "gate a feature for specific users", "implement a kill
-  switch", "set up LaunchDarkly or Unleash", "clean up an old flag", or "roll back without
-  deploying".
+description: Implementing, gating, and cleaning up feature flags: picks the right flag type (boolean, percentage rollout, user-targeted), wires up a flag client (LaunchDarkly, Unleash, Flagsmith, or homegrown config), wraps new code in flag checks without coupling business logic to the flag system, tracks flag age, and removes stale flags safely. Use when you want to add a feature flag, do a gradual rollout, gate a feature for specific users, implement a kill switch, set up LaunchDarkly or Unleash, clean up an old flag, or roll back without deploying.
 ---
 
 ## feature-flags
