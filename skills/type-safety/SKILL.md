@@ -287,3 +287,8 @@ function area(shape: Shape): number {
   make sense together, they belong in a union variant.
 - Brand domain identifiers (UserId, OrderId, ProductId) when they share the same
   primitive type. Mixing them up is a bug the compiler can catch for free.
+
+---
+
+For the TypeScript handbook sections on narrowing, Zod docs, mypy strict flags, and the
+branded types pattern, see [references/REFERENCE.md](references/REFERENCE.md).
