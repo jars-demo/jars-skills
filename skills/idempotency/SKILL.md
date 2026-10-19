@@ -275,3 +275,8 @@ const idempotencyKey = `order-confirmation:${orderId}:${version}`;
 - Idempotency keys must expire. Storage that never expires grows without bound.
 - Never reuse a key for a different operation. The key is tied to the exact logical operation,
   not just the endpoint.
+
+---
+
+For deeper reading on delivery semantics, Stripe's implementation model, and PostgreSQL
+upsert syntax, see [references/REFERENCE.md](references/REFERENCE.md).
