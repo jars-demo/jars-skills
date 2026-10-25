@@ -1,4 +1,4 @@
-﻿---
+---
 name: testing-strategy
 description: Designing a test suite that catches real bugs without becoming a maintenance burden: applies the test pyramid (unit, integration, contract, E2E), decides what to test at each layer, writes tests that test behaviour not implementation, avoids over-mocking, uses real databases in integration tests, and keeps the suite fast enough to run on every commit. Use when you want to design a testing strategy, decide what to unit test vs integration test, set up integration tests with a real database, write contract tests, avoid over-mocking, make tests faster, reduce brittle tests, or plan a test suite for a new service.
 ---
