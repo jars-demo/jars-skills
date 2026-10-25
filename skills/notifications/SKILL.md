@@ -1,4 +1,4 @@
-﻿---
+---
 name: notifications
 description: Designing and implementing a multi-channel notification system: routes notifications through email, push, SMS, and in-app channels based on user preferences, renders templates with user data, tracks delivery status, deduplicates within time windows to prevent spam, respects opt-outs, and sends through the background job queue so the request path is never blocked. Use when you want to send notifications, implement email notifications, add push notifications, build an in-app notification system, manage notification preferences, track delivery status, prevent notification spam, or route alerts through multiple channels.
 ---
