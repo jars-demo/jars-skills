@@ -1,4 +1,4 @@
-﻿---
+---
 name: event-driven-architecture
 description: Designing and implementing event-driven systems: defines versioned event schemas with a registry, separates domain events from integration events, implements the transactional outbox pattern to guarantee event publication, designs idempotent consumers, handles event ordering and out-of-order delivery, and avoids the coupling and observability traps that make event-driven systems hard to debug. Use when you want to design an event-driven system, publish domain events, implement the outbox pattern, decouple services with events, version an event schema, design a consumer, handle event ordering, or use Kafka or a message broker correctly.
 ---
