@@ -1,4 +1,4 @@
-﻿---
+---
 name: circuit-breaker
 description: Implementing the circuit breaker pattern to stop cascading failures: builds the three-state machine (closed, open, half-open), wires it around outbound HTTP calls and database queries, tunes failure thresholds and recovery timeouts, exposes state as a metric, and integrates with existing retry and timeout logic. Use when you want to add a circuit breaker, prevent cascading failures, fail fast when a dependency is down, implement the circuit breaker pattern, stop hammering a failing service, add resilience to outbound calls, or use a library like opossum or resilience4j.
 ---
