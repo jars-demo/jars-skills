@@ -1,4 +1,4 @@
-﻿---
+---
 name: database-transactions
 description: Writing correct database transactions: applies ACID properties deliberately, chooses the right isolation level for the operation, keeps transactions short, avoids long-running transaction anti-patterns, uses SELECT FOR UPDATE and optimistic locking correctly, handles deadlocks with retry logic, and uses savepoints for nested rollback. Use when you want to write a database transaction, choose an isolation level, fix a lost update, use SELECT FOR UPDATE, implement optimistic locking, handle a deadlock, use savepoints, avoid long-running transactions, or ensure atomicity across multiple tables.
 ---
