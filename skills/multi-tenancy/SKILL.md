@@ -1,4 +1,4 @@
-﻿---
+---
 name: multi-tenancy
 description: Designing and implementing multi-tenant data isolation: chooses between row-level, schema-per-tenant, and database-per-tenant strategies, propagates tenant context through the request lifecycle, enforces tenant scoping at the repository layer so business logic never touches another tenant's data, applies Row Level Security in PostgreSQL, and audits for tenant leakage bugs. Use when you want to add multi-tenancy, isolate tenant data, implement row-level security, propagate tenant context, prevent cross-tenant data leaks, add a tenant_id to queries, build a SaaS application, or audit for tenant isolation bugs.
 ---
