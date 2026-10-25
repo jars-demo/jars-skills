@@ -1,4 +1,4 @@
-﻿---
+---
 name: api-versioning
 description: Designing and evolving APIs without breaking existing clients: chooses the right versioning strategy (URL path, header, query param), distinguishes breaking from non-breaking changes, implements a deprecation lifecycle with Sunset headers, routes version traffic cleanly, and manages the migration window so old versions can eventually be retired. Use when you want to version an API, add a new API version, deprecate an old endpoint, make a breaking change safely, add Sunset headers, design a v2 API, migrate clients from v1 to v2, or retire an old API version.
 ---
