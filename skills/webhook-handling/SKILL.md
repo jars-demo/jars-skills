@@ -1,4 +1,4 @@
-﻿---
+---
 name: webhook-handling
 description: Receiving, verifying, and processing webhooks reliably: verifies signatures before touching the payload, returns 200 immediately and processes in the background, makes handlers idempotent, handles retries and out-of-order delivery, and never exposes raw errors to the sender. Use when you want to handle webhooks, verify a Stripe or GitHub webhook signature, process webhook events, avoid duplicate webhook processing, respond to webhooks correctly, handle webhook retries, or secure a webhook endpoint.
 ---
