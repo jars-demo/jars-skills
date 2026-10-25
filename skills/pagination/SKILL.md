@@ -1,4 +1,4 @@
-﻿---
+---
 name: pagination
 description: Designing and implementing pagination that stays fast at scale: chooses cursor/keyset pagination over OFFSET for large datasets, encodes opaque cursors, returns consistent page metadata, handles the total-count tradeoff, and avoids the common bugs that cause duplicate or missing records when data changes between pages. Use when you want to add pagination, implement cursor pagination, fix slow OFFSET queries, paginate an API response, design a paginated list endpoint, return next page token, or handle large dataset pagination.
 ---
