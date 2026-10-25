@@ -1,4 +1,4 @@
-﻿---
+---
 name: file-storage
 description: Designing and implementing file upload, storage, and delivery: generates presigned URLs for direct client-to-S3 uploads, validates files by magic bytes before accepting them, stores metadata in the database, serves files through a CDN, scans for malware asynchronously, manages lifecycle policies to control costs, and never stores user-uploaded files on the application server. Use when you want to add file upload, store files in S3, generate presigned URLs, serve files via CDN, validate uploaded files, scan uploads for malware, manage file storage costs, or implement file download.
 ---
