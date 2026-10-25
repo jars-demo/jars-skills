@@ -1,4 +1,4 @@
-﻿---
+---
 name: search
 description: Implementing search that works at scale: chooses between PostgreSQL full-text search and Elasticsearch based on requirements, builds tsvector indexes with the right language config, combines full-text with filter predicates, ranks results with ts_rank, adds fuzzy/trigram matching for typo tolerance, designs an Elasticsearch index with correct mappings and analyzers, and keeps the search index in sync with the source of truth. Use when you want to add search, implement full-text search, use PostgreSQL FTS, set up Elasticsearch, add fuzzy search, combine search with filters, rank search results, or keep a search index in sync.
 ---
