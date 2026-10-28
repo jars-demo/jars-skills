@@ -21,6 +21,11 @@ Everything from here is instructions for the agent carrying out the build.
 - **Keep it small.** One core mechanic, portrait mobile viewport, a handful of
   screens (title → play → game over). Reject feature creep even if it seems fun —
   three good mechanics beat eight mediocre ones in a lightweight game.
+- **Don't overengineer, and keep token spend lean.** No speculative abstractions, no extra
+  files/helpers for something used once, no config system for options the game doesn't have.
+  Tests should be a handful that exercise real logic (collision, scoring, win/lose transitions),
+  not a count to hit. Don't re-read a file right after writing it, don't restate a decision
+  already made, and don't reach for a subagent — this is single-session, straight-through work.
 - **Zero asset pipeline by default.** Draw everything on Canvas 2D in code and
   synthesize every sound with Web Audio oscillators. No image files, no audio
   files, nothing to license, nothing to download. This is not a shortcut taken

@@ -25,6 +25,14 @@ to this skill; the runbook has the actual recipe.
   flow. This is explicitly a lightweight-game skill, not a general game-engineering skill —
   push back (gently, by proposing a smaller version) on requests that would turn into a large,
   multi-system build.
+- **Don't overengineer, and keep token spend lean.** Build what the game actually needs and
+  stop there — no speculative abstractions, no config layers or plugin systems "in case it
+  grows," no extra files or helper modules for something used once, no padded test suites
+  written to hit a number rather than to catch a real bug. Prefer a few focused unit tests on
+  the real logic (collision, scoring, state transitions) over broad coverage of trivial code.
+  Don't re-read files you just wrote, don't re-explain the same decision twice, and don't spawn
+  subagents for a build this size — a single session building straight through, per the
+  ask-once rule below, is the right shape for this skill.
 - **Zero asset pipeline by default.** Draw art on Canvas 2D, synthesize audio with Web Audio.
   No image/audio files unless the user supplies their own — see the runbook's asset policy.
   If they don't supply assets, generate them yourself: procedurally in code (the default) or
@@ -65,3 +73,4 @@ to this skill; the runbook has the actual recipe.
 | Shipping with the actual 8 MB Snap limit as the target | Enforcing the 7 MB cap from the runbook's packaging script |
 | "The leaderboard code looks right" as the verification | Serving the packaged Lens build and calling `window.snapchat.leaderboards.submitScore(...)` live to confirm the stub actually responds |
 | Using a stock image/icon pack to save time | Drawing a procedural icon/logo in code (or using the user's own supplied assets) |
+| A config system for options the game doesn't have yet, or a 40-test suite for a 150-line physics file | A plain constant and a handful of tests that actually exercise collision/scoring/game-over logic |
