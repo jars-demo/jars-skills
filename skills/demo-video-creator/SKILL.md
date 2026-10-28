@@ -18,6 +18,9 @@ distilled from shipped videos, not guesses.
 
 ## Ground rules
 
+- **If there's a voiceover, the voiceover is the clock.** The timeline runs on voiceover time
+  and the voiceover is never cut or re-timed to fit the footage — animated scenes, live-app
+  actions, and all editing decisions bend to it instead. See the runbook's "The one rule".
 - **Real captured footage, always.** The picture is genuine continuous motion captured from
   the running target (a real cursor moving, a real page/game reacting) — never a slideshow of
   static screenshots with pans/zooms standing in for video. This is non-negotiable, including
