@@ -79,10 +79,13 @@ genuinely ambiguous) ask once, as a single batch:
 2. **Does the target produce its own sound that matters** (game SFX/music, a clip with
    dialogue)? If yes, Step 3's audio tap is required, not optional.
 3. **Roughly how long should the final cut be**, and is there a hard size/format constraint
-   (e.g. a Snapchat Lens preview video, which wants a short 5–10s vertical-friendly clip; a
-   product demo might run 90–180s). This drives the shot list's total duration.
-4. **Is there a real voiceover script, or is this music/SFX-only?** If there's a script:
-   - Who's recording it — the user, or should it be synthesized (Step 4)?
+   (e.g. a Snapchat Lens preview video, which wants a short 5–10s vertical-friendly clip).
+   Narrated explainers and demos default to **3 to 5 minutes**; longer only when the topic
+   needs the depth, stated up front. This drives the shot list's total duration.
+4. **Is there a real voiceover script, or is this music/SFX-only?** With no script yet, write
+   one with the `demo-video-script-creator` skill first. If there's a script:
+   - Who's recording it — the user, or should it be synthesized? Step 5 decides this from
+     whether the API key can use the voice.
    - Voice/person: ask once if it matters (e.g. first-person "I built..." vs. "we built...")
      and hold to it consistently rather than drifting mid-script.
 5. **Does the subject have its own brand** (a product with a logo/color scheme)? If so, pull
@@ -91,8 +94,8 @@ genuinely ambiguous) ask once, as a single batch:
 If there's a voiceover script, write it with real structure before recording anything —
 typically: the problem (why this matters), the subject itself, what it actually does, the live
 demonstration (the bulk of the runtime), the close/call-to-action. A rough pacing guide for
-synthesized narration: about 2.0–2.3 spoken words per second, so a 150-second cut needs roughly
-300–350 words.
+synthesized narration: about 2.2–2.8 spoken words per second (plan at 2.5), so a 4-minute cut
+needs roughly 600 words. The `demo-video-script-creator` skill has the full sizing rules.
 
 Break `WHAT IT SHOULD SHOW` into an ordered list of **scenes**: some may be live-app capture
 (Step 3), some may be animated explainer scenes with no live app in them at all (Step 2,
@@ -152,6 +155,20 @@ than captured live, since there's nothing live to capture:
   any `transform: translate(-50%, -50%)` used to center the element — the element visibly jumps
   off-center the instant the animation starts. Center with `left`/`top`/`margin` instead of a
   centering `transform` on anything that will later be animated with `transform`.
+- **Author every timing in absolute voiceover seconds.** Put `data-in="47.28"` (and optional
+  `data-out`, `data-a` for the animation name, `data-fx` + `data-fx-at` for a later state change
+  such as a highlight) on each element, give each `<section>` a `data-start`, and let one small
+  script turn them into `animation: <name> <dur>s <ease> <in - start>s both`. Then the word
+  timestamps from the transcript paste straight in, and re-timing a scene is a find-and-replace.
+  An exit animation must use `forwards`, not `both`, or its first keyframe overrides the entry
+  animation before the exit starts.
+- **Use the subject's own site as the design source.** Screenshot it first, take its colour
+  tokens and fonts (download the font files so captions can use them too), and repeat its top
+  bar in every scene so explainer scenes and live footage read as one video.
+- **A CLI demo is real output, replayed.** Run the commands for real in a scratch copy of the
+  project (never the user's working copy), capture their exact stdout, and type them into a
+  terminal panel in the scenes file. Every line on screen must be output that actually printed;
+  say in the hand-off that the terminal is a replay of a real run.
 - **Always review preview frames before the full render.** Render a handful of PNGs at key
   timestamps, tile them into one contact-sheet image, and look at it before spending the time
   on a full 60fps render of a scene that turns out to have a layout bug.
@@ -347,6 +364,12 @@ await b.close();
 - **Never click a destructive or irreversible control while recording** (delete, "sync again"
   on live data, anything that mutates real external state) — glide near it and narrate around
   it instead if it needs to be shown.
+- **Pick selectors from the live DOM, not the repo source.** The deployed site can lag the
+  source (an id that exists in the code may not be deployed yet), and section ids often sit on
+  headings rather than sections. Dump the live page's ids first and target
+  `xpath=ancestor::section[1]` of a heading id where needed.
+- **Nothing to point at below the fold.** `glide()` doesn't scroll; scroll first (a smooth
+  `scrollBy`) so the element and the spotlight sit above where captions will go.
 - **Point at external links; don't actually open them** — a recording that navigates away loses
   the thread and the drawn cursor/spotlight state.
 
@@ -387,10 +410,26 @@ Run per scene: `python -I frames2video.py work/scene-01`. Each scene directory n
 
 ## Step 5 — Narration, music, SFX, and captions (skip anything not wanted)
 
-**Voiceover**: if the user is recording their own narration, just collect the audio file (any
-format ffmpeg reads) and follow it exactly as recorded, even where it drifted slightly from the
-written script — the recorded audio is the real source of truth, not the draft text. If it
-should be synthesized, use ElevenLabs:
+**Voiceover**: decide who makes it, in this order, and tell the user which path you took:
+
+1. Find the key: `ELEVENLABS_API_KEY` in the environment, else in a local `.env` (load it
+   without printing it, and check `git check-ignore .env` — add it to `.gitignore` if not). No
+   key: ask the user for one once.
+2. Check the voice: `GET /v1/voices/<voice_id>` must return 200. Default voice is Jeremy
+   (`bkWmSiLbVbuhntmf2Kw7`, Young, Confident, American Male) unless the user names another.
+3. Check the quota: `GET /v1/user/subscription` gives `character_count` / `character_limit`;
+   the script's character count (tags included) must fit in what's left.
+4. Prove access with a tiny generation (a two-word line, `eleven_v3`). On the free plan, library
+   voices fail here with `402 paid_plan_required` even though step 2 passed.
+5. All four pass: generate the voiceover (below). Any fails, or the user gives no key: hand over
+   the script and say plainly — "Your ElevenLabs API key isn't available or can't use this
+   voice, so please record this script in ElevenLabs (voice: Jeremy, model v3) and send me the
+   .mp3." Then wait for the file.
+
+If the user records their own narration, just collect the audio file (any format ffmpeg reads)
+and follow it exactly as recorded, even where it drifted slightly from the written script — the
+recorded audio is the real source of truth, not the draft text. If it should be synthesized,
+use ElevenLabs:
 
 ```python
 # eleven.py <music|sfx|tts> <out-file> ...args — minimal ElevenLabs client, key never printed.
@@ -419,10 +458,13 @@ if __name__ == "__main__":
         post("/v1/sound-generation", {"text": sys.argv[3], "duration_seconds": float(sys.argv[4]), "prompt_influence": 0.6}, out)
     elif kind == "tts":
         voice_id = sys.argv[4]
-        # v3-style delivery tags work inline in the text: [serious], [confident], [excited],
-        # and "..." for a natural pause. Keep paragraphs short; one beat per paragraph.
-        post(f"/v1/text-to-speech/{voice_id}", {"text": sys.argv[3], "model_id": "eleven_multilingual_v2"}, out)
+        # Delivery tags ([serious], [confident], [excited]) and "..." pauses only work with the
+        # v3 model. Keep paragraphs short; one beat per paragraph.
+        post(f"/v1/text-to-speech/{voice_id}", {"text": sys.argv[3], "model_id": "eleven_v3"}, out)
 ```
+
+For a series (one channel, many videos), reuse the same set of beds and SFX across videos so
+the channel has one recognisable sound; generate new ones only when a mood is missing.
 
 Generate one or more short ambient music beds — for a longer cut, several beds matched to each
 act (e.g. tense under a problem statement, bright under the product, light under the ending),
@@ -436,6 +478,11 @@ Keep beds instrumental and low-key; they sit under the voice, never over it.
    with `ffmpeg -i <file> -af ebur128 -f null -`.
 2. Target roughly **12 LU under the voice** (e.g. voice around -19 LUFS, bed around -31 LUFS,
    both measured before the final `loudnorm` pass).
+   Measure the ducked bed on its own for one act, keyed by the voice:
+   `ffmpeg -ss A -t D -i vo.mp3 -t D -i bed.wav -filter_complex "[0:a]asplit=2[v][k];[1:a]volume=-16dB[b];[b][k]sidechaincompress=threshold=0.05:ratio=3:attack=40:release=450:makeup=1[d];[v]anullsink;[d]ebur128[o]" -map "[o]" -f null -`
+   and compare with the voice's own `ebur128` over the same span. Beds generated around
+   -11 LUFS land ~11 LU under a -19 LUFS voice at `volume=-16dB`; `-12dB` was only ~7 LU under,
+   which is not "subtle".
 3. If a first attempt comes out inaudible in the pauses, that's usually too much gain
    reduction from the ducking compressor, not too little bed volume — loosen the
    `sidechaincompress` ratio (e.g. from `ratio=6` to `ratio=3`) before raising the bed's raw
@@ -563,6 +610,20 @@ the user discover a cut wait on their own. Note what's left for them (approving 
 swapping in their own voiceover if a placeholder was synthesized, where it gets uploaded).
 Never upload, publish, or submit it anywhere without being asked.
 
+Also write `out/youtube.md`, ready to paste into YouTube Studio:
+
+- **Files:** the video (duration, resolution), `thumbnail.png` (1280x720, rendered from an HTML
+  page in the video's own theme), and the `.vtt` captions.
+- **Title:** one recommended, under ~70 characters, the topic's search words first; plus two
+  alternatives.
+- **Description:** the hook in one or two sentences, what the video covers, what was built and
+  how to try it, then links (repo, site, related issues/posts; a `<add after publishing>`
+  placeholder for anything not public yet), then **Chapters** with `0:00`-style timestamps taken
+  from the final timeline's act starts, then 4–6 hashtags.
+- **Tags:** 12–20 comma-separated search terms, specific to general.
+- **Settings:** category (Science & Technology), language and captions file, not made for kids,
+  visibility left to the user.
+
 ---
 
 ## Windows gotchas
@@ -593,5 +654,6 @@ Never upload, publish, or submit it anywhere without being asked.
 [ ] Step 5 — narration/music/SFX collected or generated, levels measured; captions transcribed
 [ ] Step 6 — shot list cut, concatenated, audio mixed+ducked+normalized, final mux done
 [ ] Step 7 — QA checklist run in full, scratch state cleaned up
-[ ] Step 8 — handed back to the user with any cuts/imperfections disclosed; nothing published
+[ ] Step 8 — handed back with any cuts/imperfections disclosed, youtube.md + thumbnail written;
+              nothing published
 ```
