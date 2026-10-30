@@ -80,7 +80,7 @@ unclear; a workshop or lab repo means Explainer + demo.
 | Weak | Strong |
 | --- | --- |
 | "In this video, I'll show you my new project." | "You find the perfect library on GitHub. It does exactly what you need… Were you allowed to?" |
-| "Studies show 80% of projects have licence issues." (unsourced) | "In the real world, projects get this wrong all the time. Not out of bad intent. Out of habit." |
-| "The MIT licence is permissive." | "Permissive licences, like M-I-T and Apache two point oh, ask for very little." |
+| "Studies show 80% of projects have license issues." (unsourced) | "In the real world, projects get this wrong all the time. Not out of bad intent. Out of habit." |
+| "The MIT license is permissive." | "Permissive licenses, like M-I-T and Apache two point oh, ask for very little." |
 | A 1,100-word script for a "short demo" | 657 words for a 5-minute cap, counted before hand-off (it read in 3:57) |
 | Shot plan: "show the app" | "Real terminal: `nest run 1` (three ✗), fix, `nest check 1` (four PASS)" |
