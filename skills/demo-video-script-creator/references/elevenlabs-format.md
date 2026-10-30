@@ -85,7 +85,7 @@ Were you allowed to?
 
 [serious, measured]
 
-If that repository has no licence...
+If that repository has no license...
 
 the answer is no.
 ```
