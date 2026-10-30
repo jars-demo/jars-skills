@@ -83,7 +83,7 @@ def ticker_items(skills: list[dict[str, str]], repo: str) -> str:
         ("JARS SKILLS", f"{len(skills)} skills published and counting"),
         ("INSTALL", f"npx skills add {repo}"),
         ("WORKS WITH", "Claude Code, Cursor, GitHub Copilot, Codex, Gemini CLI and more"),
-        ("OPEN SOURCE", "MIT licence, contributions welcome"),
+        ("OPEN SOURCE", "MIT license, contributions welcome"),
         ("FORMAT", "One skill per job, one file, under 500 lines"),
     ]
     # 3 most recent skills as news items
