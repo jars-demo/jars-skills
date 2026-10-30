@@ -18,6 +18,18 @@ distilled from shipped videos, not guesses.
 
 ## Ground rules
 
+- **Script first.** With no narration script yet, write one with the
+  `demo-video-script-creator` skill (script + shot plan, 3 to 5 minutes by default) before
+  recording anything.
+- **Get the voiceover the seamless way, and say plainly when you can't.** Look for
+  `ELEVENLABS_API_KEY` in the environment or a local `.env` (never print it; make sure `.env` is
+  git-ignored). If it's missing, ask the user for one. With a key, check it can use the chosen
+  voice (default: Jeremy, `bkWmSiLbVbuhntmf2Kw7`) and has enough characters left for the script,
+  then generate the voiceover. If there's no key, or the key can't use the voice (the free plan
+  refuses library voices through the API with `402 paid_plan_required`), give the user the
+  script and tell them clearly: "Your ElevenLabs API key isn't available or can't use this
+  voice, so please record this script in ElevenLabs and send me the .mp3." Then wait for it.
+  The runbook's Step 5 has the checks.
 - **If there's a voiceover, the voiceover is the clock.** The timeline runs on voiceover time
   and the voiceover is never cut or re-timed to fit the footage — animated scenes, live-app
   actions, and all editing decisions bend to it instead. See the runbook's "The one rule".
@@ -31,6 +43,9 @@ distilled from shipped videos, not guesses.
   than faking a game's or app's own sound with generic stock audio.
 - **Narration, music, and SFX on top are expected and good** — the rule above is about the
   picture (and the target's own sound) being real, not about refusing any synthesized layer.
+- **Every video gets a sound design, by default.** A subtle instrumental music bed ducked under
+  the voice, a soft SFX on act changes and reveals, and a real click sound on every recorded
+  click, placed at the click's logged timestamp so it lands on the frame the cursor presses.
 - **Read the runbook before writing any recording script.** It has working, previously-shipped
   templates for the capture script, the fixed-fps conversion, the ElevenLabs client, the
   transcript step, and the final assembly script — adapt these rather than starting from a
@@ -48,7 +63,8 @@ distilled from shipped videos, not guesses.
 2. Follow its Step 0 (intake/shot planning) through Step 7 (hand-off) for the target and script
    the user described.
 3. Report back what was captured, assembled, and verified, and hand over the output file path —
-   not a restatement of every step taken.
+   not a restatement of every step taken — plus the YouTube package from the runbook's Step 8
+   (title, description with links and chapters, tags, captions file, thumbnail).
 
 ## Examples
 
